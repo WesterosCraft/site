@@ -11,52 +11,42 @@ import {
 } from '@/components/ui/navigation-menu'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import Image from 'next/image'
 
 export const MainNav = () => {
   const components: { title: string; href: string; description: string }[] = [
     {
-      title: 'Alert Dialog',
+      title: 'Modpack',
       href: '/docs/primitives/alert-dialog',
       description:
         'A modal dialog that interrupts the user with important content and expects a response.',
     },
     {
-      title: 'Hover Card',
+      title: 'Progress',
       href: '/docs/primitives/hover-card',
       description: 'For sighted users to preview content available behind a link.',
     },
     {
-      title: 'Progress',
+      title: 'Rules & Guides',
       href: '/docs/primitives/progress',
       description:
         'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
     },
     {
-      title: 'Scroll-area',
+      title: 'FAQ',
       href: '/docs/primitives/scroll-area',
       description: 'Visually or semantically separates content.',
-    },
-    {
-      title: 'Tabs',
-      href: '/docs/primitives/tabs',
-      description:
-        'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
-    },
-    {
-      title: 'Tooltip',
-      href: '/docs/primitives/tooltip',
-      description:
-        'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
     },
   ]
 
   return (
     <header className="w-full border-b bg-neutral-900 shadow-sm backdrop-blur">
       <div className="container flex h-14 items-center">
+        <Image src="/westeroscraft.svg" alt="WesterosCraft Logo" width={176} height={24} priority />
         <NavigationMenu className="flex items-center space-x-6 text-sm font-medium">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent text-white">
+              <NavigationMenuTrigger className="bg-transparent text-white hover:bg-transparent hover:text-yellow-200">
                 Community
               </NavigationMenuTrigger>
               <NavigationMenuContent>
@@ -88,7 +78,7 @@ export const MainNav = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent text-white">
+              <NavigationMenuTrigger className="bg-transparent text-white hover:bg-transparent hover:text-yellow-200">
                 Resources
               </NavigationMenuTrigger>
               <NavigationMenuContent>
@@ -104,7 +94,7 @@ export const MainNav = () => {
             <NavigationMenuItem>
               <Link href="/docs" legacyBehavior passHref>
                 <NavigationMenuLink
-                  className={`${navigationMenuTriggerStyle()} bg-transparent text-white`}
+                  className={`${navigationMenuTriggerStyle()} bg-transparent text-white hover:bg-transparent hover:text-yellow-200`}
                 >
                   Map
                 </NavigationMenuLink>
@@ -113,7 +103,7 @@ export const MainNav = () => {
             <NavigationMenuItem>
               <Link href="/docs" legacyBehavior passHref>
                 <NavigationMenuLink
-                  className={`${navigationMenuTriggerStyle()} bg-transparent text-white`}
+                  className={`${navigationMenuTriggerStyle()} bg-transparent text-white hover:bg-transparent hover:text-yellow-200`}
                 >
                   Wiki
                 </NavigationMenuLink>
@@ -122,7 +112,7 @@ export const MainNav = () => {
             <NavigationMenuItem>
               <Link href="/docs" legacyBehavior passHref>
                 <NavigationMenuLink
-                  className={`${navigationMenuTriggerStyle()} bg-transparent text-white`}
+                  className={`${navigationMenuTriggerStyle()} bg-transparent text-white hover:bg-transparent hover:text-yellow-200`}
                 >
                   Discord
                 </NavigationMenuLink>
