@@ -1,10 +1,5 @@
-import { Button, Header } from "ui";
+import Image from 'next/image'
 
-export default function Page() {
-  return (
-    <>
-      <Header text="Web" />
-      <Button />
-    </>
-  );
+export default function Home() {
+  return <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
 }
