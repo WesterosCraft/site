@@ -4,6 +4,7 @@ import { ContainerBorder } from '@/components/bordered-container'
 import { Hero } from '@/components/hero'
 import { LocationFeature } from '@/components/location-feature'
 import { TypographyH1, TypographyP } from '@/components/typography'
+import { AnimatedLetters } from '@/components/ui/animated-letters'
 import { Video } from '@/components/video'
 
 export default function Home() {
@@ -30,7 +31,9 @@ function StartYourJourney() {
   return (
     <ContainerBorder variant="dark" className="pt-14 pb-8 px-4" borderBottom>
       <div className="flex justify-center items-center">
-        <TypographyH1 className="text-white">Start Your Journey</TypographyH1>
+        <TypographyH1 className="text-white">
+          <AnimatedLetters text="Start Your Journey" />
+        </TypographyH1>
       </div>
     </ContainerBorder>
   )
@@ -40,7 +43,9 @@ function ExploreTheRealm() {
   return (
     <ContainerBorder className="pt-14 pb-8 px-4" borderBottom>
       <div className="flex justify-center items-center">
-        <TypographyH1>Explore The Realm</TypographyH1>
+        <TypographyH1>
+          <AnimatedLetters text="Explore The Realm" />
+        </TypographyH1>
       </div>
     </ContainerBorder>
   )
