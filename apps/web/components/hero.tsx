@@ -31,8 +31,16 @@ export const Hero = () => {
           </TypographyH4>
 
           <div className="flex flex-row mt-4 sm:mt-8 gap-4">
-            <Button>Join the Server</Button>
-            <Button variant="outline">View the Wiki</Button>
+            <Button size="lg" className="rounded-none text-lg">
+              Join the Server
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="rounded-none text-lg hover:bg-primaryRed hover:text-white"
+            >
+              View the Wiki
+            </Button>
           </div>
         </motion.div>
       </div>

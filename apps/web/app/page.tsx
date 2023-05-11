@@ -99,7 +99,7 @@ function TenYearsWesterosCraft() {
           viewport={{ once: true, margin: '-100px' }}
           transition={{ delay: 0.5 }}
         >
-          <TypographyP className="text-lg">
+          <TypographyP className="text-lg mt-8">
             From simple cobblestone shacks in 2011 to ornate cities in 2021, we have come a long way
             from our humble beginnings. Our goal is to create one of the largest and most detailed
             Minecraft worlds ever built.

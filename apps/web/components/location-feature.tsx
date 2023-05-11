@@ -122,8 +122,8 @@ export const LocationFeature = () => {
         viewport={{ once: true, margin: '-100px' }}
         transition={{ delay: 0.3 }}
       >
-        {images.map(image => (
-          <motion.div variants={child} viewport={{ once: true, margin: '-100px' }} key={image.src}>
+        {images.map((image, i) => (
+          <motion.div variants={child} viewport={{ once: true, margin: '-100px' }} key={i}>
             <NextImage key={image.src} width={355} height={355} src={image.src} alt="asd" />
           </motion.div>
         ))}
