@@ -1,8 +1,10 @@
+import { AlternatingFeature } from '@/components/alternating-feature'
 import { Banner } from '@/components/banner'
 import { BannerGrid } from '@/components/banner-grid'
 import { ContainerBorder } from '@/components/bordered-container'
 import { Hero } from '@/components/hero'
 import { LocationFeature } from '@/components/location-feature'
+import { Testimonials } from '@/components/testimonials'
 import { TypographyH1, TypographyP } from '@/components/typography'
 import { AnimatedLetters } from '@/components/ui/animated-letters'
 import { Video } from '@/components/video'
@@ -22,7 +24,9 @@ export default function Home() {
       <div className="w-full">
         <ExploreTheRealm />
         <LocationFeature />
+        <AlternatingFeature />
       </div>
+      <Testimonials />
     </main>
   )
 }
