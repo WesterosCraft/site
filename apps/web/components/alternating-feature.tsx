@@ -3,8 +3,9 @@ import { motion } from 'framer-motion'
 import NextImage from 'next/image'
 import { ContainerBorder } from './bordered-container'
 import { AspectRatio } from './ui/aspect-ratio'
-import { TypographyH3, TypographyP } from './typography'
+import { TypographyH2, TypographyH3, TypographyP } from './typography'
 import { Button } from './ui/button'
+import { ArrowRight } from 'lucide-react'
 
 const features = [
   {
@@ -39,14 +40,18 @@ export const AlternatingFeature = () => {
             viewport={{ once: true, margin: '-100px' }}
             transition={{ delay: 0.3 }}
           >
-            <AspectRatio
-              ratio={16 / 9}
-              className="max-h-[280px] lg:max-h-[400px] pointer-events-none"
-            >
-              <NextImage src={feat.src} alt={feat.subheading} width={650} height={450} />
-            </AspectRatio>
+            <div className="max-h-[280px] lg:max-h-[400px] pointer-events-none">
+              <AspectRatio ratio={16 / 9}>
+                <NextImage
+                  src={feat.src}
+                  alt={feat.subheading}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                />
+              </AspectRatio>
+            </div>
           </motion.div>
-          <div className="lg:w-lg mx-6 md:mx-8 lg:mx-0 px-6 md:px-8 lg:px-0 py-6 md:py-8 lg:py-12">
+          <div className="lg:w-[32rem] mx-6 md:mx-8 lg:mx-0 px-6 md:px-8 lg:px-0 py-6 md:py-8 lg:py-12">
             <div className="flex flex-col gap-8 lg:gap-10">
               <div className="flex flex-col gap-2 lg:gap-4">
                 <motion.div
@@ -55,7 +60,7 @@ export const AlternatingFeature = () => {
                   viewport={{ once: true, margin: '-100px' }}
                   transition={{ delay: 0.3 }}
                 >
-                  <TypographyH3>{feat.heading}</TypographyH3>
+                  <TypographyH2>{feat.heading}</TypographyH2>
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
@@ -72,7 +77,12 @@ export const AlternatingFeature = () => {
                 viewport={{ once: true, margin: '-100px' }}
                 transition={{ delay: 0.5 }}
               >
-                <Button variant="link">{feat.linkText}</Button>
+                <Button
+                  variant="link"
+                  className="p-0 text-lg text-primaryRed hover:text-red-800 hover:fill-red-800"
+                >
+                  {feat.linkText} <ArrowRight />
+                </Button>
               </motion.div>
             </div>
           </div>

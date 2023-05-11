@@ -40,10 +40,10 @@ export const MainNav = () => {
   ]
 
   return (
-    <header className="w-full border-b bg-neutral-900 shadow-sm backdrop-blur">
-      <div className="container flex h-14 items-center">
+    <header className="w-full border-b bg-primaryDark shadow-sm backdrop-blur z-50">
+      <div className="container flex h-16 items-center">
         <Image src="/westeroscraft.svg" alt="WesterosCraft Logo" width={176} height={24} priority />
-        <NavigationMenu className="flex items-center space-x-6 text-sm font-medium">
+        <NavigationMenu className="h-16 flex items-center space-x-6 font-medium">
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger className="bg-transparent text-white hover:bg-transparent hover:text-yellow-200">
