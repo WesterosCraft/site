@@ -1,3 +1,5 @@
+'use client'
+import { motion } from 'framer-motion'
 import { AlternatingFeature } from '@/components/alternating-feature'
 import { Banner } from '@/components/banner'
 import { BannerGrid } from '@/components/banner-grid'
@@ -8,6 +10,7 @@ import { Testimonials } from '@/components/testimonials'
 import { TypographyH1, TypographyP } from '@/components/typography'
 import { AnimatedLetters } from '@/components/ui/animated-letters'
 import { Video } from '@/components/video'
+import { container } from '@/constants/animation'
 
 export default function Home() {
   return (
@@ -59,13 +62,20 @@ function WesterosCraftDescription() {
   return (
     <ContainerBorder variant="dark" className="pt-20 sm:pt-24  px-4">
       <div className="text-center max-w-2xl mx-auto mb-24 px-4">
-        <TypographyP className="text-white className='text-lg'">
-          <span color="primaryGold">WesterosCraft</span> is a modded server where visitors can
-          explore the entire continent of Westeros and are free to join the community of builders
-          bringing it to life. Wander the streets of King’s Landing or the fields of Highgarden.
-          Take a flight through the deadly Moon Door, or even retrace the steps of your favorite
-          character.
-        </TypographyP>
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+        >
+          <TypographyP className="text-white text-lg">
+            <span className="text-primaryGold">WesterosCraft</span> is a modded server where
+            visitors can explore the entire continent of Westeros and are free to join the community
+            of builders bringing it to life. Wander the streets of King’s Landing or the fields of
+            Highgarden. Take a flight through the deadly Moon Door, or even retrace the steps of
+            your favorite character.
+          </TypographyP>
+        </motion.div>
       </div>
     </ContainerBorder>
   )
@@ -75,12 +85,26 @@ function TenYearsWesterosCraft() {
   return (
     <ContainerBorder variant="dark" className="pt-14 pb-8 px-4">
       <div className="text-white text-center lg:max-w-xl mx-auto">
-        <TypographyH1 className="text-primaryGold">10 years of WesterosCraft</TypographyH1>
-        <TypographyP className="text-lg">
-          From simple cobblestone shacks in 2011 to ornate cities in 2021, we have come a long way
-          from our humble beginnings. Our goal is to create one of the largest and most detailed
-          Minecraft worlds ever built.
-        </TypographyP>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ delay: 0.3 }}
+        >
+          <TypographyH1 className="text-primaryGold">10 years of WesterosCraft</TypographyH1>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ delay: 0.5 }}
+        >
+          <TypographyP className="text-lg">
+            From simple cobblestone shacks in 2011 to ornate cities in 2021, we have come a long way
+            from our humble beginnings. Our goal is to create one of the largest and most detailed
+            Minecraft worlds ever built.
+          </TypographyP>
+        </motion.div>
       </div>
     </ContainerBorder>
   )

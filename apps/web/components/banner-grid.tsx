@@ -1,5 +1,8 @@
+'use client'
+import { motion } from 'framer-motion'
 import { ContainerBorder } from './bordered-container'
 import Image from 'next/image'
+import { child, container } from '@/constants/animation'
 
 const features = [
   {
@@ -27,9 +30,20 @@ const features = [
 export const BannerGrid = () => {
   return (
     <ContainerBorder variant="dark" className="px-4 pb-24 sm:pb-32">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-10">
+      <motion.div
+        variants={container}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-100px' }}
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-10"
+      >
         {features.map((feature, index) => (
-          <div key={index} className="p-6 text-center">
+          <motion.div
+            variants={child}
+            viewport={{ once: true, margin: '-100px' }}
+            key={index}
+            className="p-6 text-center"
+          >
             <Image
               width={75}
               height={150}
@@ -41,9 +55,9 @@ export const BannerGrid = () => {
               <p className="text-primaryGold font-medium text-lg">{feature.heading}</p>
               <p className="mt-2">{feature.copy}</p>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </ContainerBorder>
   )
 }
