@@ -7,7 +7,7 @@ export const Footer = () => {
   return (
     <footer className="bg-primaryDark py-12 px-4 md:px-8 text-white">
       <div className="flex flex-col max-w-7xl mx-auto gap-10 divide-solid">
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-28">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-28 justify-between">
           <div className="flex flex-col align-start gap-4">
             <Image
               src="/westeroscraft.svg"

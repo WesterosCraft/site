@@ -47,10 +47,10 @@ export const MainNav = () => {
                     </a>
                   </NavigationMenuLink>
                 </li>
-                <ListItem href="/docs" title="About">
+                <ListItem href="/about" title="About">
                   Read all about us and our process.
                 </ListItem>
-                <ListItem href="/docs/installation" title="Rookery">
+                <ListItem href="/rookery" title="Rookery">
                   All editions of our quarterly newsletter.
                 </ListItem>
                 <ListItem href="/docs/primitives/typography" title="Donate">

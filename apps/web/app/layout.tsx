@@ -13,14 +13,21 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  keywords: ['Next.js', 'React', 'Tailwind CSS', 'Server Components', 'Radix UI'],
+  keywords: [
+    'Minecraft',
+    'Game of Thrones',
+    'Westeros',
+    'WesterosCraft',
+    'ASOIAF',
+    'A Song of Ice and Fire',
+  ],
   authors: [
     {
-      name: 'shadcn',
-      url: 'https://shadcn.com',
+      name: 'Jacob Granberry',
+      url: 'https://jacobgranberry.com',
     },
   ],
-  creator: 'shadcn',
+  creator: 'Jacob Granberry',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: 'black' },
@@ -46,7 +53,7 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: '@shadcn',
+    creator: '@westeroscraft',
   },
   icons: {
     icon: '/favicon.ico',

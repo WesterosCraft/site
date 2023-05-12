@@ -30,7 +30,7 @@ export const Hero = () => {
             An open world, creative Minecraft server
           </TypographyH4>
 
-          <div className="flex flex-row mt-4 sm:mt-8 gap-4">
+          <div className="flex flex-col sm:flex-row mt-4 sm:mt-8 gap-4">
             <Button size="lg" className="rounded-none text-lg">
               Join the Server
             </Button>
