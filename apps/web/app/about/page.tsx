@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client'
 import { ContainerBorder } from '@/components/bordered-container'
 import { TypographyH1, TypographyH2, TypographyH4, TypographyP } from '@/components/typography'
