@@ -13,12 +13,11 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "jsx": "react",
-    "sourceMap": true,
-    "resolveJsonModule": true,
     "paths": {
-      "payload/generated-types": ["./src/payload-types.ts"],
-      "node_modules/*": ["./node_modules/*"]
-    },
+      "payload/generated-types": [
+        "./src/payload-types.ts",
+      ],
+    }
   },
   "include": [
     "src"
@@ -29,6 +28,7 @@
     "build",
   ],
   "ts-node": {
-    "transpileOnly": true
+    "transpileOnly": true,
+    "swc": true,
   }
 }
