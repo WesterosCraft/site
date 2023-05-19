@@ -3,6 +3,11 @@
   "globalDependencies": [
     "**/.env.*local"
   ],
+  "globalEnv": [
+    "PAYLOAD_URL",
+    "PAYLOAD_SECRET",
+    "MONGODB_URI"
+  ],
   "pipeline": {
     "build": {
       "dependsOn": [

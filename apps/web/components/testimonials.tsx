@@ -1,5 +1,5 @@
 'use client'
-import { container } from '@/constants/animation'
+import { container } from '@/constants'
 import { motion } from 'framer-motion'
 import { TypographyP } from './typography'
 import { QuoteIcon } from 'lucide-react'

@@ -10,7 +10,7 @@ import { Testimonials } from '@/components/testimonials'
 import { TypographyH1, TypographyP } from '@/components/typography'
 import { AnimatedLetters } from '@/components/ui/animated-letters'
 import { Video } from '@/components/video'
-import { container } from '@/constants/animation'
+import { container } from '@/constants'
 
 export default function Home() {
   return (

@@ -3,6 +3,13 @@ module.exports = {
   darkMode: ['class'],
   content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}'],
   theme: {
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    },
     container: {
       center: true,
       padding: '2rem',
@@ -71,6 +78,9 @@ module.exports = {
       },
       backgroundImage: {
         'square-pattern': 'url(/bright-squares.png)',
+      },
+      maxWidth: {
+        '8xl': '90rem',
       },
     },
   },

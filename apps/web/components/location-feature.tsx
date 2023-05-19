@@ -3,7 +3,7 @@ import NextImage from 'next/image'
 import { ContainerBorder } from './bordered-container'
 import { TypographyH2, TypographyP } from './typography'
 import { motion } from 'framer-motion'
-import { child, container } from '@/constants/animation'
+import { child, container } from '@/constants'
 import { Button } from './ui/button'
 import { ArrowRight } from 'lucide-react'
 
