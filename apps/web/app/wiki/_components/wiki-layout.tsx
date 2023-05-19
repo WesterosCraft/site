@@ -180,7 +180,7 @@ function useTableOfContents(tableOfContents: any) {
     if (tableOfContents.length === 0 || headings.length === 0) return
 
     function onScroll() {
-      let sortedHeadings = headings.concat([]).sort((a, b) => a.top - b.top)
+      let sortedHeadings: any[] = headings.concat([]).sort((a: any, b: any) => a.top - b.top)
 
       let top = window.pageYOffset
       let current = sortedHeadings[0].id
@@ -200,6 +200,7 @@ function useTableOfContents(tableOfContents: any) {
     return () => {
       window.removeEventListener('scroll', onScroll, {
         capture: true,
+        // @ts-ignore
         passive: true,
       })
     }

@@ -79,6 +79,9 @@ module.exports = {
       backgroundImage: {
         'square-pattern': 'url(/bright-squares.png)',
       },
+      maxWidth: {
+        '8xl': '90rem',
+      },
     },
   },
   plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],

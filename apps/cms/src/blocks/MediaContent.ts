@@ -45,7 +45,6 @@ export const MediaContent: Block = {
       relationTo: 'media',
       required: true,
       admin: {
-        // @ts-ignore
         condition: (data, { embeddedVideo }) => Boolean(!embeddedVideo?.embed),
         description: 'Maximum upload file size: 2MB. Recommended file size for images is <500KB.',
       },

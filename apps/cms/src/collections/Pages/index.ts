@@ -9,6 +9,9 @@ import MediaSlider from '../../blocks/MediaSlider'
 import { Accordion } from '../../blocks/Accordion'
 import { populateAuthor } from './hooks/populateAuthor'
 import { hero } from '../../fields/hero'
+import { Banner } from '../../blocks/Banner'
+import { AnimatedHeading } from '../../blocks/AnimatedHeading'
+import { LatestEdition } from '../../blocks/LatestEdition'
 
 export const Pages: CollectionConfig = {
   // the slug is used for naming the collection in the database and the APIs that are open. For example: api/pages/${id}
@@ -57,7 +60,16 @@ export const Pages: CollectionConfig = {
               type: 'blocks',
               minRows: 1,
               localized: true,
-              blocks: [Accordion, Content, Media, MediaContent, MediaSlider],
+              blocks: [
+                Accordion,
+                Content,
+                Media,
+                MediaContent,
+                MediaSlider,
+                Banner,
+                AnimatedHeading,
+                LatestEdition,
+              ],
             },
           ],
         },
