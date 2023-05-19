@@ -1,3 +1,5 @@
+export const IS_BROWSER = typeof window !== 'undefined'
+
 export const container = {
   hidden: { opacity: 0 },
   visible: (i = 1) => ({

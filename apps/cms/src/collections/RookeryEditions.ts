@@ -12,6 +12,7 @@ const RookeryEditions: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
+      required: true,
     },
     {
       name: 'description',
@@ -20,6 +21,16 @@ const RookeryEditions: CollectionConfig = {
     {
       name: 'link',
       type: 'text',
+      required: true,
+    },
+    {
+      name: 'thumbnail',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
+      admin: {
+        description: 'Maximum upload file size: 12MB. Recommended file size for images is <500KB.',
+      },
     },
   ],
   timestamps: false,

@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion'
 import { ContainerBorder } from './bordered-container'
 import Image from 'next/image'
-import { child, container } from '@/constants/animation'
+import { child, container } from '@/constants'
 
 const features = [
   {
