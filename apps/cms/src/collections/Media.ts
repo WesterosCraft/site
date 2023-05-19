@@ -1,10 +1,13 @@
-import path from 'path';
-import type { CollectionConfig } from 'payload/types';
+import path from 'path'
+import type { CollectionConfig } from 'payload/types'
 
 const Media: CollectionConfig = {
   slug: 'media',
   upload: {
-    staticDir: path.resolve(__dirname, '../../media'),
+    disableLocalStorage: true,
+    staticURL: '/media',
+    staticDir: 'media',
+    // staticDir: path.resolve(__dirname, '../../media'),
     // Specify the size name that you'd like to use as admin thumbnail
     adminThumbnail: 'thumbnail',
     imageSizes: [
@@ -23,6 +26,6 @@ const Media: CollectionConfig = {
     ],
   },
   fields: [],
-};
+}
 
-export default Media;
+export default Media

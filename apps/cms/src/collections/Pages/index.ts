@@ -28,9 +28,9 @@ export const Pages: CollectionConfig = {
     // allow guest users to fetch pages
     read: () => true,
     // The access for the remaining options use the default which prevents all guest access and is allowed for authenticated users
-    // create,
-    // update,
-    // delete,
+    create: () => true,
+    update: () => true,
+    delete: () => true,
   },
   // versioning with drafts enabled tells Payload to save documents to a separate collection in the database and allow publishing
   versions: {

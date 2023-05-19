@@ -1,4 +1,5 @@
 import { buildConfig } from 'payload/config'
+import { cloudStorage } from '@payloadcms/plugin-cloud-storage'
 import path from 'path'
 import nestedDocs from '@payloadcms/plugin-nested-docs'
 import Categories from './collections/Categories'
@@ -10,6 +11,7 @@ import Pages from './collections/Pages'
 import RookeryEditions from './collections/RookeryEditions'
 import MainMenu from './globals/MainNav'
 import Footer from './globals/Footer'
+import { adapter } from './s3-adapter'
 
 export default buildConfig({
   serverURL: process.env.PAYLOAD_URL,
@@ -35,6 +37,14 @@ export default buildConfig({
       breadcrumbsFieldSlug: 'breadcrumbs',
       generateLabel: (_, doc) => doc.title as string,
       generateURL: docs => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
+    }),
+    cloudStorage({
+      collections: {
+        media: {
+          adapter,
+          disablePayloadAccessControl: true,
+        },
+      },
     }),
   ],
   graphQL: {
