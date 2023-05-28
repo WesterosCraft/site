@@ -8,6 +8,8 @@ import Tags from './collections/Tags'
 import Users from './collections/Users'
 import Media from './collections/Media'
 import Pages from './collections/Pages'
+import Locations from './collections/Locations'
+import Guides from './collections/Guides'
 import RookeryEditions from './collections/RookeryEditions'
 import MainMenu from './globals/MainNav'
 import Footer from './globals/Footer'
@@ -26,7 +28,7 @@ export default buildConfig({
     window: 2 * 60 * 1000, // 2 minutes
     max: 2400, // limit each IP per windowMs
   },
-  collections: [Categories, Posts, Tags, Users, Media, RookeryEditions, Pages],
+  collections: [Categories, Posts, Tags, Users, Media, RookeryEditions, Pages, Locations, Guides],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
@@ -41,6 +43,7 @@ export default buildConfig({
     cloudStorage({
       collections: {
         media: {
+          prefix: 'media/images',
           adapter,
           disablePayloadAccessControl: true,
         },

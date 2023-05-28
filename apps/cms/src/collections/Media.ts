@@ -1,4 +1,3 @@
-import path from 'path'
 import type { CollectionConfig } from 'payload/types'
 
 const Media: CollectionConfig = {
@@ -7,9 +6,9 @@ const Media: CollectionConfig = {
     disableLocalStorage: true,
     staticURL: '/media',
     staticDir: 'media',
-    // staticDir: path.resolve(__dirname, '../../media'),
-    // Specify the size name that you'd like to use as admin thumbnail
-    adminThumbnail: 'thumbnail',
+    mimeTypes: ['image/*'],
+    adminThumbnail: ({ doc }) =>
+      `https://westeroscraft.s3.amazonaws.com/media/images/${doc.filename}`,
     imageSizes: [
       {
         height: 400,
