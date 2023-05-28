@@ -1,5 +1,7 @@
 import { CollectionConfig } from 'payload/types'
 import populateFullTitle from '../../hooks/populateFullTitle'
+import projectDetails from '../../fields/projectDetails'
+import Content from '../../blocks/Content'
 
 export const Locations: CollectionConfig = {
   slug: 'locations',
@@ -48,6 +50,23 @@ export const Locations: CollectionConfig = {
         {
           label: 'Details',
           fields: [projectDetails],
+        },
+        {
+          label: 'Images',
+          fields: [],
+        },
+        {
+          label: 'Content',
+          fields: [
+            {
+              name: 'layout',
+              label: false,
+              type: 'blocks',
+              minRows: 1,
+              localized: true,
+              blocks: [Content],
+            },
+          ],
         },
       ],
     },
