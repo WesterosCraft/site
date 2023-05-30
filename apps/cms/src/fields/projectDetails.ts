@@ -17,62 +17,53 @@ const projectDetails: Field = {
           type: 'row',
           fields: [
             {
-              name: 'name',
-              label: 'Location Name',
-              type: 'text',
-              required: true,
-              admin: {
-                width: '50%',
-              },
-            },
-            {
               label: 'Region',
               name: 'region',
               type: 'select',
               required: true,
               options: [
                 {
-                  label: 'dorne',
+                  label: 'Dorne',
                   value: 'dorne',
                 },
                 {
-                  label: 'riverlands',
+                  label: 'Riverlands',
                   value: 'riverlands',
                 },
                 {
-                  label: 'theWall',
+                  label: 'The Wall',
                   value: 'theWall',
                 },
                 {
-                  label: 'north',
+                  label: 'North',
                   value: 'north',
                 },
                 {
-                  label: 'vale',
+                  label: 'Vale',
                   value: 'vale',
                 },
                 {
-                  label: 'ironIslands',
+                  label: 'Iron Islands',
                   value: 'ironIslands',
                 },
                 {
-                  label: 'westerlands',
+                  label: 'Westerlands',
                   value: 'westerlands',
                 },
                 {
-                  label: 'crownlands',
+                  label: 'Crownlands',
                   value: 'crownlands',
                 },
                 {
-                  label: 'stormlands',
+                  label: 'Stormlands',
                   value: 'stormlands',
                 },
                 {
-                  label: 'reach',
+                  label: 'Reach',
                   value: 'reach',
                 },
                 {
-                  label: 'beyondTheWall',
+                  label: 'Beyond The Wall',
                   value: 'beyondTheWall',
                 },
               ],
@@ -170,6 +161,24 @@ const projectDetails: Field = {
               label: 'Date Completed',
               type: 'date',
               admin: {
+                width: '50%',
+              },
+            },
+            {
+              name: 'difficultyLevel',
+              label: 'Difficulty Level',
+              type: 'select',
+              options: [
+                { label: '1', value: '1' },
+                { label: '2', value: '2' },
+                { label: '3', value: '3' },
+                { label: '4', value: '4' },
+                { label: '5', value: '5' },
+                { label: '6', value: '6' },
+              ],
+              admin: {
+                description:
+                  'A categorization of the location in order to more accurately calculate overall project completion',
                 width: '50%',
               },
             },

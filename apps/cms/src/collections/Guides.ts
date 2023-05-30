@@ -1,5 +1,5 @@
 import { CollectionConfig } from 'payload/types'
-import populateFullTitle from '../../hooks/populateFullTitle'
+import populateFullTitle from '../hooks/populateFullTitle'
 
 export const Guides: CollectionConfig = {
   slug: 'guides',
