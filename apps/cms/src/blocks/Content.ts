@@ -1,5 +1,4 @@
 import { Block } from 'payload/types'
-import linkGroup from '../fields/linkGroup'
 import richText from '../fields/richText'
 import Video from '../fields/richText/video'
 import HR from '../fields/richText/hr'
@@ -83,12 +82,6 @@ export const Content: Block = {
             elements: ['ol', 'ul', 'indent', 'relationship', 'upload', Video, HR],
           },
         ),
-        linkGroup({
-          overrides: {
-            maxRows: 10,
-          },
-          appearances: false,
-        }),
       ],
     },
   ],

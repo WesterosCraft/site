@@ -318,50 +318,99 @@ const test = {
   dynmapInformation: { xCoord: undefined, yCoord: undefined, zoom: undefined },
 }
 
+const childrenMap = (children: any[]) => {
+  const newChild = [] as any[]
+
+  children?.map((child, i) => {
+    if (child.marks.includes('strong')) {
+      newChild.push({
+        bold: true,
+        text: child?.text,
+      })
+    } else if (child.marks.includes('underline')) {
+      newChild.push({
+        underline: true,
+        text: child?.text,
+      })
+    } else if (child.marks.includes('em')) {
+      newChild.push({
+        italic: true,
+        text: child?.text,
+      })
+    } else {
+      newChild.push({
+        text: child?.text,
+      })
+    }
+  })
+
+  return newChild
+}
+
+function mergeListItems(arr: typeof test.entry) {
+  const newArr = [] as any[]
+  const newList = [] as any[]
+
+  for (let i = 0; i < arr.length; i++) {
+    const currentItem = arr[i]
+
+    if (!currentItem.listItem) {
+      newArr.push(currentItem)
+    } else {
+      let nextItem = arr[i + 1]
+
+      if (nextItem && nextItem.listItem) {
+        newList.push(
+          {
+            type: 'li',
+            children: childrenMap(currentItem.children),
+          },
+          {
+            type: 'li',
+            children: childrenMap(nextItem.children),
+          },
+        )
+
+        const res = { type: 'ul', children: newList }
+
+        if (!newArr.some(x => JSON.stringify(x) === JSON.stringify(res))) {
+          newArr.push(res)
+        }
+        i++
+      }
+    }
+  }
+
+  return newArr
+}
+
 const sanityRichTextToPayloadRichText = (sRichText: typeof test.entry) => {
   const newRT = [] as any[]
 
-  const childrenMap = (children: any[]) => {
-    const newChild = [] as any[]
-
-    children.map(child => {
-      if (child.marks.includes('strong')) {
-        newChild.push({
-          bold: true,
-          text: child?.text,
-        })
-      } else if (child.marks.includes('underline')) {
-        newChild.push({
-          underline: true,
-          text: child?.text,
-        })
-      } else {
-        newChild.push({
-          text: child?.text,
-        })
-      }
-    })
-
-    return newChild
-  }
-
-  sRichText.map(rt => {
+  sRichText.map((rt, x) => {
     if (rt._type === 'block') {
       // HEADINGS
       if (
-        rt.style === 'normal' ||
-        rt.style === 'h3' ||
-        rt.style === 'h2' ||
-        rt.style === 'h1' ||
-        rt.style === 'h4' ||
-        rt.style === 'h5' ||
-        (rt.style === 'h6' && !rt.listItem)
+        (rt.style === 'normal' ||
+          rt.style === 'h3' ||
+          rt.style === 'h2' ||
+          rt.style === 'h1' ||
+          rt.style === 'h4' ||
+          rt.style === 'h5' ||
+          rt.style === 'h6') &&
+        rt?.listItem === undefined
       ) {
         newRT.push({
           children: childrenMap(rt.children),
           type: rt.style,
         })
       }
+    }
+
+    //  LISTS
+    // @ts-ignore
+    if (rt.type === 'ul') {
+      newRT.push(rt)
     }
 
     if (rt._type === 'video') {
@@ -380,8 +429,6 @@ const sanityRichTextToPayloadRichText = (sRichText: typeof test.entry) => {
 
   return newRT
 }
-
-// console.log(sanityRichTextToPayloadRichText(test.entry))
 
 const uploadLocationData = async (data: typeof test) => {
   const body: Location = {
@@ -440,7 +487,34 @@ const uploadLocationData = async (data: typeof test) => {
   }
 }
 
-uploadLocationData(test)
+const t = mergeListItems(test.entry)
+
+console.dir(t, { depth: null })
+
+uploadLocationData({ ...test, entry: t })
+
+const isDeepEqual = (object1, object2) => {
+  const objKeys1 = Object.keys(object1)
+  const objKeys2 = Object.keys(object2)
+
+  if (objKeys1.length !== objKeys2.length) return false
+
+  for (var key of objKeys1) {
+    const value1 = object1[key]
+    const value2 = object2[key]
+
+    const isObjects = isObject(value1) && isObject(value2)
+
+    if ((isObjects && !isDeepEqual(value1, value2)) || (!isObjects && value1 !== value2)) {
+      return false
+    }
+  }
+  return true
+}
+
+const isObject = object => {
+  return object != null && typeof object === 'object'
+}
 
 // {
 //     "id": "6474ec90db1b482ba295c684",
