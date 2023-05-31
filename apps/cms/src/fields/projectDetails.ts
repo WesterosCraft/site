@@ -169,12 +169,12 @@ const projectDetails: Field = {
               label: 'Difficulty Level',
               type: 'select',
               options: [
-                { label: '1', value: 'one' },
-                { label: '2', value: 'two' },
-                { label: '3', value: 'three' },
-                { label: '4', value: 'four' },
-                { label: '5', value: 'five' },
-                { label: '6', value: 'six' },
+                { label: '1', value: '1' },
+                { label: '2', value: '2' },
+                { label: '3', value: '3' },
+                { label: '4', value: '4' },
+                { label: '5', value: '5' },
+                { label: '6', value: '6' },
               ],
               admin: {
                 description:

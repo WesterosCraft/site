@@ -23,7 +23,6 @@ const richText: RichText = (
     {
       name: 'richText',
       type: 'richText',
-
       admin: {
         upload: {
           collections: {

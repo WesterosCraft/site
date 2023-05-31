@@ -1,21 +1,49 @@
 import { Location } from './../src/payload-types'
+import { getImageAsset } from '@sanity/asset-utils'
 
 const test = {
   _createdAt: '2021-01-23T01:00:47Z',
   _id: 'pyke',
-  _rev: 'wzQp83DAUqyqV3ewGJJU4z',
-  _type: 'destination',
-  _updatedAt: '2021-10-03T17:19:49Z',
-  application: '',
-  banner: {
-    _sanityAsset: 'image@file://./images/b41f1ae26abc6bde24597e1c61646ed9fc135faf-180x360.png',
-    _type: 'image',
+  _rev: 'ztp47YqpuX31viMd75x26A',
+  _type: 'location',
+  _updatedAt: '2022-04-28T01:45:29Z',
+  additionalImages: {
+    images: [
+      {
+        _key: '1fTfQ5u4',
+        _type: 'image',
+        asset: {
+          _ref: 'image-c4c0726a704821375b0884da2cb4423f65b70058-1366x768-png',
+          _type: 'reference',
+        },
+      },
+      {
+        _key: 'VSClmzVZ',
+        _type: 'image',
+        asset: {
+          _ref: 'image-c6e084e0e190c8eaaffbdb5c5791292dc39568bb-1366x768-png',
+          _type: 'reference',
+        },
+      },
+      {
+        _key: '7Oc8V7ql',
+        _type: 'image',
+        asset: {
+          _ref: 'image-9db21793d325fc9752d84d7742870800caf51365-1366x768-png',
+          _type: 'reference',
+        },
+      },
+    ],
   },
-  buildType: 'castle',
-  dateCompleted: '2014-10-05T07:00:00+00:00',
-  dateStarted: '2013-10-05T07:00:00+00:00',
-  difficultyLevel: 'four',
-  entry: [
+  application: '',
+  bannerImage: {
+    _type: 'image',
+    asset: {
+      _ref: 'image-f2c704fe2bd4f4cb48bd1b738c66e9c18aeca464-180x360-png',
+      _type: 'reference',
+    },
+  },
+  body: [
     {
       _key: 'e15d017bd8ed',
       _type: 'block',
@@ -212,9 +240,11 @@ const test = {
       alt: 'PykeRenderLabelled',
       caption: 'The buildings of Pyke labelled on a render by Pizzainacup.',
       image: {
-        _sanityAsset:
-          'image@file://./images/5b78d4b07e34f740c1f2a3724f6b22fc1bdbc9e9-1920x1200.jpg',
         _type: 'image',
+        asset: {
+          _ref: 'image-ef318e37eecde2234a2e42d882fd48bb697350f6-1920x1200-jpg',
+          _type: 'reference',
+        },
       },
     },
     {
@@ -223,8 +253,11 @@ const test = {
       alt: 'PykeGIF',
       caption: 'A GIF of Pyke created by Contra.',
       image: {
-        _sanityAsset: 'image@file://./images/6f195b5225b6b4ab2adcdb78e73aa727e377b7ef-445x261.gif',
         _type: 'image',
+        asset: {
+          _ref: 'image-6f195b5225b6b4ab2adcdb78e73aa727e377b7ef-445x261-gif',
+          _type: 'reference',
+        },
       },
     },
     {
@@ -254,8 +287,11 @@ const test = {
       alt: 'PykeHBO',
       caption: 'Pyke as imagined in the HBO series.',
       image: {
-        _sanityAsset: 'image@file://./images/d680a0bf5e987d60d451053b6a37a3e44ee94ba9-688x409.jpg',
         _type: 'image',
+        asset: {
+          _ref: 'image-d5b9a5ba247f831a4b1d662fdb0876a014d0a6b8-688x409-jpg',
+          _type: 'reference',
+        },
       },
     },
     {
@@ -279,8 +315,16 @@ const test = {
       markDefs: [],
       style: 'h3',
     },
-    { _key: '8e173e7040aa', _type: 'video', url: 'https://www.youtube.com/embed/utJjyrP0GWM' },
-    { _key: '9136837e85ec', _type: 'video', url: 'https://www.youtube.com/embed/dn4dVo5Rw5Y' },
+    {
+      _key: '8e173e7040aa',
+      _type: 'video',
+      url: 'https:https://www.youtube.com/embed/utJjyrP0GWM',
+    },
+    {
+      _key: '9136837e85ec',
+      _type: 'video',
+      url: 'https:https://www.youtube.com/embed/dn4dVo5Rw5Y',
+    },
     {
       _key: 'e285d11ce711',
       _type: 'block',
@@ -289,34 +333,75 @@ const test = {
       style: 'normal',
     },
   ],
-  house: 'House Greyjoy',
-  images: [
-    {
-      _sanityAsset: 'image@file://./images/7cf1b30fa7701b85379fc213f9b5f722638b3532-1366x768.png',
-      _key: '1fTfQ5u4',
-      _type: 'image',
-    },
-    {
-      _sanityAsset: 'image@file://./images/a2593bd23901a349c61c839bc034aedecceaad55-1366x768.png',
-      _key: 'VSClmzVZ',
-      _type: 'image',
-    },
-    {
-      _sanityAsset: 'image@file://./images/abd98416776900658c906c9b476cb22821fe32db-1366x768.png',
-      _key: '7Oc8V7ql',
-      _type: 'image',
-    },
+  buildCategory: [
+    { _key: 'jHGYOlmi', _ref: 'aa78e9be-b3ce-4112-9ab3-7a052ac5b020', _type: 'reference' },
   ],
-  name: 'Pyke',
+  dateCompleted: '2013-10-05T07:00:00+00:00',
+  dateStarted: '2013-10-05T07:00:00+00:00',
+  difficulty: '4',
+  house: 'House Greyjoy',
   projectLead: 'SMP',
   projectStatus: 'completed',
-  region: 'ironIslands',
+  region: { _ref: '4a1046e1-af4c-4e58-8beb-1db82b0562c7', _type: 'reference' },
   slug: { _type: 'slug', current: 'pyke' },
+  title: 'Pyke',
   warp: '/warp pyke',
-  serverBuild: undefined,
-  redoAvailable: undefined,
-  dynmapInformation: { xCoord: undefined, yCoord: undefined, zoom: undefined },
+  redoAvailable: false,
+  serverProject: false,
+  dynmapZoom: undefined,
+  dynmapXcoord: undefined,
+  dynmapYcoord: undefined,
 }
+
+const getFileOrImage = (fileName: string) => {
+  return getImageAsset(fileName, { projectId: '1as7cn02', dataset: 'production' })
+}
+
+async function fetchBlob(url: string) {
+  const response = await fetch(url)
+
+  // Here is the significant part
+  // reading the stream as a blob instead of json
+  return response.blob()
+}
+
+const uploadImage = async (fileName: string) => {
+  const newF = getFileOrImage(fileName)
+
+  console.log('🫵 -----------------------------🫵')
+  console.log('🫵 : uploadImage : newF', newF)
+  console.log('🫵 -----------------------------🫵')
+
+  const formData = new FormData()
+
+  const blob = await fetchBlob(newF.url)
+
+  console.log('🫵 -----------------------------🫵')
+  console.log('🫵 : uploadImage : blob', blob)
+  console.log('🫵 -----------------------------🫵')
+
+  formData.append('file', blob, `${newF.assetId}.${newF.extension}`)
+
+  const options = {
+    method: 'POST',
+    body: formData,
+    // If you add this, upload won't work
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  }
+
+  // @ts-ignore
+  delete options.headers['Content-Type']
+
+  const s = await fetch('http://localhost:3000/api/media', options)
+
+  console.log('🫵 -----------------------🫵')
+  console.log('🫵 : uploadImage : s', s)
+  console.log('🫵 -----------------------🫵')
+}
+
+uploadImage(test.bannerImage.asset._ref)
 
 const childrenMap = (children: any[]) => {
   const newChild = [] as any[]
@@ -347,7 +432,7 @@ const childrenMap = (children: any[]) => {
   return newChild
 }
 
-function mergeListItems(arr: typeof test.entry) {
+function mergeListItems(arr: typeof test.body) {
   const newArr = [] as any[]
   const newList = [] as any[]
 
@@ -384,7 +469,7 @@ function mergeListItems(arr: typeof test.entry) {
   return newArr
 }
 
-const sanityRichTextToPayloadRichText = (sRichText: typeof test.entry) => {
+const sanityRichTextToPayloadRichText = (sRichText: typeof test.body) => {
   const newRT = [] as any[]
 
   sRichText.map((rt, x) => {
@@ -432,14 +517,19 @@ const sanityRichTextToPayloadRichText = (sRichText: typeof test.entry) => {
 
 const uploadLocationData = async (data: typeof test) => {
   const body: Location = {
-    locationName: data?.name || '',
+    locationName: data?.title || '',
     slug: data?.slug?.current || undefined,
-    difficultyLevel: data?.difficultyLevel,
+    difficultyLevel: data?.difficulty,
     projectDetails: {
       information: {
-        region: (data?.region as Location['projectDetails']['information']['region']) || '',
+        region:
+          (regionMap(data?.region._ref) as Location['projectDetails']['information']['region']) ||
+          '',
         status: (data?.projectStatus as Location['projectDetails']['information']['status']) || '',
-        type: (data?.buildType as Location['projectDetails']['information']['type']) || '',
+        type:
+          (buildCategoryMap(
+            data?.buildCategory[0]._ref,
+          ) as Location['projectDetails']['information']['type']) || '',
         warp: data?.warp || undefined,
         house: data?.house || undefined,
         application: data?.application || undefined,
@@ -447,12 +537,12 @@ const uploadLocationData = async (data: typeof test) => {
         dateStarted: data?.dateStarted || undefined,
         dateCompleted: data?.dateCompleted || undefined,
         redoAvailable: data?.redoAvailable || false,
-        serverProject: data?.serverBuild || false,
+        serverProject: data?.serverProject || false,
       },
       dynmapLocation: {
-        dynmapZoom: data?.dynmapInformation?.zoom,
-        dynmapXcoord: data?.dynmapInformation?.xCoord,
-        dynmapYcoord: data?.dynmapInformation?.yCoord,
+        dynmapZoom: data?.dynmapZoom,
+        dynmapXcoord: data?.dynmapXcoord,
+        dynmapYcoord: data?.dynmapYcoord,
       },
     },
     layout: [
@@ -463,7 +553,7 @@ const uploadLocationData = async (data: typeof test) => {
             links: [],
             width: 'full',
             alignment: 'left',
-            richText: sanityRichTextToPayloadRichText(data.entry),
+            richText: sanityRichTextToPayloadRichText(data.body),
           },
         ],
       },
@@ -487,384 +577,64 @@ const uploadLocationData = async (data: typeof test) => {
   }
 }
 
-const t = mergeListItems(test.entry)
+const t = mergeListItems(test.body)
 
-console.dir(t, { depth: null })
+// uploadLocationData({ ...test, entry: t })
 
-uploadLocationData({ ...test, entry: t })
-
-const isDeepEqual = (object1, object2) => {
-  const objKeys1 = Object.keys(object1)
-  const objKeys2 = Object.keys(object2)
-
-  if (objKeys1.length !== objKeys2.length) return false
-
-  for (var key of objKeys1) {
-    const value1 = object1[key]
-    const value2 = object2[key]
-
-    const isObjects = isObject(value1) && isObject(value2)
-
-    if ((isObjects && !isDeepEqual(value1, value2)) || (!isObjects && value1 !== value2)) {
-      return false
-    }
+const regionMap = (region: string) => {
+  switch (region) {
+    case '333b1884-bdae-43e2-8a96-b2c89ea89c79':
+      return 'dorne'
+    case 'bef10f36-8ac8-4780-894e-bbc1978884d3':
+      return 'riverlands'
+    case '94dceb06-f437-481e-b8f7-eac882e6d9c3':
+      return 'theWall'
+    case 'a5b3b817-c80d-4621-967c-f13b619ae235':
+      return 'north'
+    case 'a6b0523a-c2a7-48cd-9132-86a92cd8ba9f':
+      return 'vale'
+    case '4a1046e1-af4c-4e58-8beb-1db82b0562c7':
+      return 'ironIslands'
+    case 'fa9b1818-54dc-4799-a10b-9e25b8f0c547':
+      return 'westerlands'
+    case 'cf2197be-be99-4d62-95f6-ff452b07f0ec':
+      return 'crownlands'
+    case 'fb625d70-c2f1-4625-91b5-68b9f89064a4':
+      return 'stormlands'
+    case '12692247-e688-4d81-838a-083b12548ece':
+      return 'reach'
+    case 'd077ff2b-0ba9-48f0-b018-72dccda16187':
+      return 'beyondTheWall'
   }
-  return true
 }
 
-const isObject = object => {
-  return object != null && typeof object === 'object'
+const buildCategoryMap = (buildType: string) => {
+  switch (buildType) {
+    case '3c75eaa9-3405-48d6-9aa1-82a7e49ff08a':
+      return 'city'
+    case 'aa78e9be-b3ce-4112-9ab3-7a052ac5b020':
+      return 'castle'
+    case 'f47f7fe4-7684-46cc-86aa-9b7275f4e0de':
+      return 'town'
+    case '2a760f6a-022e-4f0c-9cff-9a9d9e613f6c':
+      return 'village'
+    case '0532d707-dcfa-455c-847a-c3c6121ab875':
+      return 'holdfast'
+    case 'd2532a38-7ecc-43d9-9769-ddd442d0d831':
+      return 'keep'
+    case '932860c4-afd3-4ddf-8f7e-24706a24c8f1':
+      return 'tower'
+    case 'f7e66aa6-0612-4c05-a4cf-9a29b113b855':
+      return 'clan'
+    case 'b27697c2-ffc7-4339-aa55-b9d248c4d015':
+      return 'crannog'
+    case '925faa14-5220-4bda-9d69-024f6366019d':
+      return 'landmark'
+    case 'eea65049-09b1-4a2d-b340-cfa23c676618':
+      return 'ruin'
+    case '666e74f4-1fd4-4c1d-a829-53ba176ba8cb':
+      return 'miscellaneous'
+    default:
+      return buildType
+  }
 }
-
-// {
-//     "id": "6474ec90db1b482ba295c684",
-//     "locationName": "test",
-//     "projectDetails": {
-//       "information": {
-//         "region": "riverlands",
-//         "status": "notStarted",
-//         "type": "miscellaneous",
-//         "redoAvailable": false,
-//         "serverProject": false
-//       },
-//       "dynmapLocation": {}
-//     },
-//     "locationImages": [],
-//     "layout": [
-//       {
-//         "columns": [
-//           {
-//             "width": "full",
-//             "alignment": "left",
-//             "richText": [
-//               {
-//                 "children": [
-//                   {
-//                     "text": "quote"
-//                   }
-//                 ],
-//                 "type": "blockquote"
-//               },
-//               {
-//                 "children": [
-//                   {
-//                     "text": "bold",
-//                     "bold": true
-//                   }
-//                 ]
-//               },
-//               {
-//                 "children": [
-//                   {
-//                     "text": "italics",
-//                     "italic": true
-//                   }
-//                 ]
-//               },
-//               {
-//                 "children": [
-//                   {
-//                     "text": "underline",
-//                     "underline": true
-//                   }
-//                 ]
-//               },
-//               {
-//                 "children": [
-//                   {
-//                     "text": "heading 2"
-//                   }
-//                 ],
-//                 "type": "h2"
-//               },
-//               {
-//                 "children": [
-//                   {
-//                     "text": "heading 3"
-//                   }
-//                 ],
-//                 "type": "h3"
-//               },
-//               {
-//                 "children": [
-//                   {
-//                     "text": "heading 4"
-//                   }
-//                 ],
-//                 "type": "h4"
-//               },
-//               {
-//                 "children": [
-//                   {
-//                     "text": "heading 5"
-//                   }
-//                 ],
-//                 "type": "h5"
-//               },
-//               {
-//                 "children": [
-//                   {
-//                     "text": "heading 6"
-//                   }
-//                 ],
-//                 "type": "h6"
-//               },
-//               {
-//                 "children": [
-//                   {
-//                     "text": ""
-//                   },
-//                   {
-//                     "type": "link",
-//                     "linkType": "custom",
-//                     "url": "https://westeroscraft.com/",
-//                     "newTab": true,
-//                     "children": [
-//                       {
-//                         "text": "custom url link"
-//                       }
-//                     ]
-//                   },
-//                   {
-//                     "text": ""
-//                   }
-//                 ]
-//               },
-//               {
-//                 "children": [
-//                   {
-//                     "text": ""
-//                   },
-//                   {
-//                     "type": "link",
-//                     "linkType": "internal",
-//                     "doc": {
-//                       "value": {
-//                         "id": "6473a2260d0e73f2a1cac72b",
-//                         "title": "asdasd",
-//                         "hero": {
-//                           "type": "basic",
-//                           "basic": {
-//                             "links": []
-//                           },
-//                           "content": {
-//                             "links": []
-//                           },
-//                           "contentMedia": {
-//                             "links": [],
-//                             "embeddedVideo": {
-//                               "aspectRatio": "56.25"
-//                             }
-//                           },
-//                           "contentSidebar": {
-//                             "links": []
-//                           },
-//                           "fullscreenBackground": {
-//                             "links": []
-//                           },
-//                           "quickNav": {
-//                             "links": [],
-//                             "columns": []
-//                           },
-//                           "fullscreenSlider": {
-//                             "links": [],
-//                             "slides": []
-//                           }
-//                         },
-//                         "layout": [
-//                           {
-//                             "appearance": "default",
-//                             "sections": [
-//                               {
-//                                 "label": "asd",
-//                                 "columns": [
-//                                   {
-//                                     "width": "full",
-//                                     "alignment": "left",
-//                                     "richText": [
-//                                       {
-//                                         "children": [
-//                                           {
-//                                             "text": "asdasd"
-//                                           }
-//                                         ]
-//                                       }
-//                                     ],
-//                                     "links": [],
-//                                     "id": "6473a2258a9b89c2bb67c304"
-//                                   }
-//                                 ],
-//                                 "id": "6473a2228a9b89c2bb67c303"
-//                               }
-//                             ],
-//                             "id": "6473a21f8a9b89c2bb67c302",
-//                             "blockType": "accordion"
-//                           }
-//                         ],
-//                         "fullTitle": "asdasd",
-//                         "breadcrumbs": [
-//                           {
-//                             "doc": "6473a2260d0e73f2a1cac72b",
-//                             "url": "/asdasd",
-//                             "label": "asdasd",
-//                             "id": "6473a227da1b4919adbe9b4a"
-//                           }
-//                         ],
-//                         "slug": "asdasd",
-//                         "author": {
-//                           "id": "6473788b235fb3552b517e8b",
-//                           "email": "jacobgranberry@gmail.com",
-//                           "createdAt": "2023-05-28T15:51:39.277Z",
-//                           "updatedAt": "2023-05-29T18:13:43.160Z"
-//                         },
-//                         "_status": "published",
-//                         "createdAt": "2023-05-28T18:49:10.781Z",
-//                         "updatedAt": "2023-05-28T18:49:11.116Z"
-//                       },
-//                       "relationTo": "pages"
-//                     },
-//                     "children": [
-//                       {
-//                         "text": "internal link"
-//                       }
-//                     ]
-//                   },
-//                   {
-//                     "text": ""
-//                   }
-//                 ]
-//               },
-//               {
-//                 "children": [
-//                   {
-//                     "text": "i dunno what this is"
-//                   }
-//                 ],
-//                 "type": "large-body"
-//               },
-//               {
-//                 "children": [
-//                   {
-//                     "text": ""
-//                   }
-//                 ]
-//               },
-//               {
-//                 "type": "ol",
-//                 "children": [
-//                   {
-//                     "children": [
-//                       {
-//                         "text": "numbered"
-//                       }
-//                     ],
-//                     "type": "li"
-//                   },
-//                   {
-//                     "children": [
-//                       {
-//                         "text": "list"
-//                       }
-//                     ],
-//                     "type": "li"
-//                   },
-//                   {
-//                     "type": "li",
-//                     "children": [
-//                       {
-//                         "text": ""
-//                       }
-//                     ]
-//                   }
-//                 ]
-//               },
-//               {
-//                 "type": "ul",
-//                 "children": [
-//                   {
-//                     "children": [
-//                       {
-//                         "text": "bulleted "
-//                       }
-//                     ],
-//                     "type": "li"
-//                   },
-//                   {
-//                     "children": [
-//                       {
-//                         "text": "list"
-//                       }
-//                     ],
-//                     "type": "li"
-//                   },
-//                   {
-//                     "type": "li",
-//                     "children": [
-//                       {
-//                         "text": ""
-//                       }
-//                     ]
-//                   }
-//                 ]
-//               },
-//               {
-//                 "children": [
-//                   {
-//                     "text": ""
-//                   }
-//                 ]
-//               },
-//               {
-//                 "type": "upload",
-//                 "value": null,
-//                 "relationTo": "media",
-//                 "children": [
-//                   {
-//                     "text": " "
-//                   }
-//                 ]
-//               },
-//               {
-//                 "children": [
-//                   {
-//                     "text": ""
-//                   }
-//                 ]
-//               },
-//               {
-//                 "type": "video",
-//                 "id": "9b25Balcsj4",
-//                 "source": "youtube",
-//                 "children": [
-//                   {
-//                     "text": " "
-//                   }
-//                 ]
-//               },
-//               {
-//                 "type": "p",
-//                 "children": [
-//                   {
-//                     "text": ""
-//                   }
-//                 ]
-//               }
-//             ],
-//             "links": [],
-//             "id": "6474ec784f9c6731bc2cd6b5"
-//           }
-//         ],
-//         "id": "6474ec774f9c6731bc2cd6b4",
-//         "blockType": "content"
-//       }
-//     ],
-//     "author": {
-//       "id": "6473788b235fb3552b517e8b",
-//       "email": "jacobgranberry@gmail.com",
-//       "createdAt": "2023-05-28T15:51:39.277Z",
-//       "updatedAt": "2023-05-29T18:13:43.160Z"
-//     },
-//     "_status": "published",
-//     "createdAt": "2023-05-29T18:18:56.020Z",
-//     "updatedAt": "2023-05-29T19:09:02.573Z"
-//   }
