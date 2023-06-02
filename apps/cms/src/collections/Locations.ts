@@ -64,10 +64,6 @@ export const Locations: CollectionConfig = {
                   name: 'media',
                   type: 'upload',
                   relationTo: 'media',
-                  admin: {
-                    description:
-                      'Maximum upload file size: 12MB. Recommended file size for images is <500KB.',
-                  },
                 },
               ],
             },
