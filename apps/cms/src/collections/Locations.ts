@@ -76,7 +76,7 @@ export const Locations: CollectionConfig = {
               name: 'layout',
               label: false,
               type: 'blocks',
-              // minRows: 1,
+              minRows: 1,
               blocks: [Content, Media, MediaContent, MediaSlider],
             },
           ],

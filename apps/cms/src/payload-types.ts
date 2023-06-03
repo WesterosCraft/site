@@ -67,24 +67,6 @@ export interface Media {
   filesize?: number;
   width?: number;
   height?: number;
-  sizes?: {
-    thumbnail?: {
-      url?: string;
-      width?: number;
-      height?: number;
-      mimeType?: string;
-      filesize?: number;
-      filename?: string;
-    };
-    sixteenByNineMedium?: {
-      url?: string;
-      width?: number;
-      height?: number;
-      mimeType?: string;
-      filesize?: number;
-      filename?: string;
-    };
-  };
 }
 export interface RookeryEdition {
   id: string;
@@ -654,7 +636,97 @@ export interface Location {
 }
 export interface Guide {
   id: string;
+  guideName: string;
+  guideDetails: {
+    information: {
+      guideCategory: 'howTo' | 'resources' | 'gettingStarted' | 'rulesAndGuidelines';
+    };
+  };
+  layout?: (
+    | {
+        columns: {
+          width: 'oneThird' | 'half' | 'twoThirds' | 'full';
+          alignment: 'left' | 'center' | 'right';
+          richText?: {
+            [k: string]: unknown;
+          }[];
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'content';
+      }
+    | {
+        media: string | Media;
+        useVimeo?: boolean;
+        vimeoID: string;
+        aspectRatio?: '56.25' | '75';
+        size?: 'normal' | 'wide' | 'fullscreen';
+        caption?: {
+          [k: string]: unknown;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'media';
+      }
+    | {
+        alignment: 'contentOnLeft' | 'contentOnRight';
+        richText?: {
+          [k: string]: unknown;
+        }[];
+        media: string | Media;
+        embeddedVideo: {
+          embed?: boolean;
+          poster?: string | Media;
+          platform?: 'youtube' | 'vimeo';
+          videoID: string;
+          aspectRatio?: '56.25' | '75';
+        };
+        links: {
+          link: {
+            appearance?: 'text' | 'primaryButton' | 'secondaryButton';
+            type?: 'reference' | 'custom';
+            label: string;
+            reference:
+              | {
+                  value: string | Page;
+                  relationTo: 'pages';
+                }
+              | {
+                  value: string | Post;
+                  relationTo: 'posts';
+                };
+            url: string;
+            newTab?: boolean;
+          };
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaContent';
+      }
+    | {
+        introContent?: {
+          [k: string]: unknown;
+        }[];
+        slides: {
+          media: string | Media;
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaSlider';
+      }
+  )[];
   fullTitle?: string;
+  breadcrumbs?: {
+    doc?: string | Location;
+    url?: string;
+    label?: string;
+    id?: string;
+  }[];
+  slug?: string;
+  author?: string | User;
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
