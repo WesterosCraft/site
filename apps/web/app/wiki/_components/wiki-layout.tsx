@@ -151,6 +151,7 @@ function useTableOfContents(tableOfContents: any) {
   let [currentSection, setCurrentSection] = useState(tableOfContents[0]?.id)
 
   let getHeadings = useCallback(() => {
+    // @ts-ignore
     function* traverse(node: any) {
       if (Array.isArray(node)) {
         for (let child of node) {

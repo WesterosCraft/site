@@ -1,4 +1,5 @@
 import { buildConfig } from 'payload/config'
+import { cloudStorage } from '@payloadcms/plugin-cloud-storage'
 import path from 'path'
 import nestedDocs from '@payloadcms/plugin-nested-docs'
 import Categories from './collections/Categories'
@@ -7,9 +8,12 @@ import Tags from './collections/Tags'
 import Users from './collections/Users'
 import Media from './collections/Media'
 import Pages from './collections/Pages'
+import Locations from './collections/Locations'
+import Guides from './collections/Guides'
 import RookeryEditions from './collections/RookeryEditions'
 import MainMenu from './globals/MainNav'
 import Footer from './globals/Footer'
+import { adapter } from './s3-adapter'
 
 export default buildConfig({
   serverURL: process.env.PAYLOAD_URL,
@@ -24,7 +28,7 @@ export default buildConfig({
     window: 2 * 60 * 1000, // 2 minutes
     max: 2400, // limit each IP per windowMs
   },
-  collections: [Categories, Posts, Tags, Users, Media, RookeryEditions, Pages],
+  collections: [Categories, Posts, Tags, Users, Media, RookeryEditions, Pages, Locations, Guides],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
@@ -36,6 +40,17 @@ export default buildConfig({
       generateLabel: (_, doc) => doc.title as string,
       generateURL: docs => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
     }),
+    cloudStorage({
+      collections: {
+        media: {
+          prefix: 'media/images',
+          adapter,
+          disablePayloadAccessControl: true,
+          generateFileURL: args =>
+            'https://westeroscraft.s3.amazonaws.com/media/images/' + args.filename,
+        },
+      },
+    }),
   ],
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
@@ -43,5 +58,10 @@ export default buildConfig({
   localization: {
     defaultLocale: 'en',
     locales: ['en'],
+  },
+  upload: {
+    limits: {
+      fileSize: 5000000, // 5MB, written in bytes
+    },
   },
 })

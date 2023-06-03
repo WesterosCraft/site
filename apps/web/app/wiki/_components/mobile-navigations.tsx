@@ -17,13 +17,13 @@ export function MobileNavigation({ navigation }: any) {
       setIsOpen(false)
     }
 
-    router.events.on('routeChangeComplete', onRouteChange)
-    router.events.on('routeChangeError', onRouteChange)
+    // router.events.on('routeChangeComplete', onRouteChange)
+    // router.events.on('routeChangeError', onRouteChange)
 
-    return () => {
-      router.events.off('routeChangeComplete', onRouteChange)
-      router.events.off('routeChangeError', onRouteChange)
-    }
+    // return () => {
+    //   router.events.off('routeChangeComplete', onRouteChange)
+    //   router.events.off('routeChangeError', onRouteChange)
+    // }
   }, [router, isOpen])
 
   return (

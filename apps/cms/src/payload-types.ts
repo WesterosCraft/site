@@ -14,9 +14,12 @@ export interface Config {
     media: Media;
     'rookery-editions': RookeryEdition;
     pages: Page;
+    locations: Location;
+    guides: Guide;
   };
   globals: {
     mainMenu: MainMenu;
+    footer: Footer;
   };
 }
 export interface Category {
@@ -55,6 +58,7 @@ export interface Tag {
 }
 export interface Media {
   id: string;
+  prefix?: string;
   updatedAt: string;
   createdAt: string;
   url?: string;
@@ -84,9 +88,10 @@ export interface Media {
 }
 export interface RookeryEdition {
   id: string;
-  name?: string;
+  name: string;
   description?: string;
-  link?: string;
+  link: string;
+  thumbnail: string | Media;
 }
 export interface Page {
   id: string;
@@ -373,23 +378,198 @@ export interface Page {
           richText?: {
             [k: string]: unknown;
           }[];
-          links: {
-            link: {
-              type?: 'reference' | 'custom';
-              label: string;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  };
-              url: string;
-              newTab?: boolean;
-            };
-            id?: string;
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'content';
+      }
+    | {
+        media: string | Media;
+        useVimeo?: boolean;
+        vimeoID: string;
+        aspectRatio?: '56.25' | '75';
+        size?: 'normal' | 'wide' | 'fullscreen';
+        caption?: {
+          [k: string]: unknown;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'media';
+      }
+    | {
+        alignment: 'contentOnLeft' | 'contentOnRight';
+        richText?: {
+          [k: string]: unknown;
+        }[];
+        media: string | Media;
+        embeddedVideo: {
+          embed?: boolean;
+          poster?: string | Media;
+          platform?: 'youtube' | 'vimeo';
+          videoID: string;
+          aspectRatio?: '56.25' | '75';
+        };
+        links: {
+          link: {
+            appearance?: 'text' | 'primaryButton' | 'secondaryButton';
+            type?: 'reference' | 'custom';
+            label: string;
+            reference:
+              | {
+                  value: string | Page;
+                  relationTo: 'pages';
+                }
+              | {
+                  value: string | Post;
+                  relationTo: 'posts';
+                };
+            url: string;
+            newTab?: boolean;
+          };
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaContent';
+      }
+    | {
+        introContent?: {
+          [k: string]: unknown;
+        }[];
+        slides: {
+          media: string | Media;
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaSlider';
+      }
+    | {
+        label: string;
+        link: {
+          type?: 'reference' | 'custom';
+          label: string;
+          reference:
+            | {
+                value: string | Page;
+                relationTo: 'pages';
+              }
+            | {
+                value: string | Post;
+                relationTo: 'posts';
+              };
+          url: string;
+          newTab?: boolean;
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'banner';
+      }
+    | {
+        label: string;
+        useAnimation?: boolean;
+        id?: string;
+        blockName?: string;
+        blockType: 'animated-heading';
+      }
+    | {
+        heading: string;
+        description: string;
+        link: {
+          type?: 'reference' | 'custom';
+          label: string;
+          reference:
+            | {
+                value: string | Page;
+                relationTo: 'pages';
+              }
+            | {
+                value: string | Post;
+                relationTo: 'posts';
+              };
+          url: string;
+          newTab?: boolean;
+        };
+        media: string | Media;
+        id?: string;
+        blockName?: string;
+        blockType: 'latest-edition';
+      }
+  )[];
+  fullTitle?: string;
+  breadcrumbs?: {
+    doc?: string | Page;
+    url?: string;
+    label?: string;
+    id?: string;
+  }[];
+  slug?: string;
+  parent?: string | Page;
+  author?: string | User;
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
+}
+export interface Location {
+  id: string;
+  locationName: string;
+  projectDetails: {
+    information: {
+      region:
+        | 'dorne'
+        | 'riverlands'
+        | 'theWall'
+        | 'north'
+        | 'vale'
+        | 'ironIslands'
+        | 'westerlands'
+        | 'crownlands'
+        | 'stormlands'
+        | 'reach'
+        | 'beyondTheWall';
+      status: 'completed' | 'inProgress' | 'notStarted' | 'abandoned' | 'redoInProgress';
+      type:
+        | 'castle'
+        | 'town'
+        | 'village'
+        | 'city'
+        | 'holdfast'
+        | 'keep'
+        | 'landmark'
+        | 'ruin'
+        | 'tower'
+        | 'clan'
+        | 'crannog'
+        | 'miscellaneous';
+      warp?: string;
+      house?: string;
+      application?: string;
+      projectLeads?: string;
+      dateStarted?: string;
+      dateCompleted?: string;
+      difficultyLevel?: '1' | '2' | '3' | '4' | '5' | '6';
+      redoAvailable?: boolean;
+      serverProject?: boolean;
+    };
+    dynmapLocation?: {
+      dynmapZoom?: string;
+      dynmapXcoord?: string;
+      dynmapYcoord?: string;
+    };
+  };
+  bannerImage?: string | Media;
+  locationImages?: {
+    media?: string | Media;
+    id?: string;
+  }[];
+  layout?: (
+    | {
+        columns: {
+          width: 'oneThird' | 'half' | 'twoThirds' | 'full';
+          alignment: 'left' | 'center' | 'right';
+          richText?: {
+            [k: string]: unknown;
           }[];
           id?: string;
         }[];
@@ -461,19 +641,105 @@ export interface Page {
   )[];
   fullTitle?: string;
   breadcrumbs?: {
-    doc?: string | Page;
+    doc?: string | Location;
     url?: string;
     label?: string;
     id?: string;
   }[];
   slug?: string;
-  parent?: string | Page;
   author?: string | User;
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
 }
+export interface Guide {
+  id: string;
+  fullTitle?: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
+}
 export interface MainMenu {
+  id: string;
+  items: {
+    type?: 'link' | 'subMenu';
+    label: string;
+    subMenu?: {
+      blocks?: (
+        | {
+            title: string;
+            id?: string;
+            blockName?: string;
+            blockType: 'menuTitle';
+          }
+        | {
+            appearance?: 'primary' | 'secondary' | 'arrow';
+            link: {
+              type?: 'reference' | 'custom';
+              label: string;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
+                  };
+              url: string;
+              newTab?: boolean;
+            };
+            id?: string;
+            blockName?: string;
+            blockType: 'menuLink';
+          }
+        | {
+            content: string;
+            id?: string;
+            blockName?: string;
+            blockType: 'menuDescription';
+          }
+        | {
+            menuFeatureMedia: string | Media;
+            headline: string;
+            link: {
+              type?: 'reference' | 'custom';
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
+                  };
+              url: string;
+              newTab?: boolean;
+            };
+            id?: string;
+            blockName?: string;
+            blockType: 'menuFeature';
+          }
+      )[];
+    };
+    link?: {
+      type?: 'reference' | 'custom';
+      reference:
+        | {
+            value: string | Page;
+            relationTo: 'pages';
+          }
+        | {
+            value: string | Post;
+            relationTo: 'posts';
+          };
+      url: string;
+      newTab?: boolean;
+    };
+    id?: string;
+  }[];
+}
+export interface Footer {
   id: string;
   items: {
     type?: 'link' | 'subMenu';
