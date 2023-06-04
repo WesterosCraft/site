@@ -7,10 +7,11 @@ import clsx from 'clsx'
 // import { MobileNavigation } from './_components/mobile-navigations'
 import { Navigation } from '../_components/navigation'
 import { Prose } from '../_components/prose'
+import { fetchLocationBySlug } from '@/lib/payload'
 
 const title = 'TITLE: TODO'
 
-export default function WikiLayout({ children, tableOfContents }: any) {
+export default async function WikiLayout({ children, tableOfContents }: any) {
   const router = useRouter()
   const pathname = usePathname()
   const isHomePage = pathname === '/'
@@ -31,7 +32,7 @@ export default function WikiLayout({ children, tableOfContents }: any) {
   //     return section.children.findIndex(isActive) > -1
   //   }
   return (
-    <div className="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12">
+    <div className="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12 w-full">
       <div className="hidden lg:relative lg:block lg:flex-none">
         <div className="absolute inset-y-0 right-0 w-[50vw] bg-slate-50 dark:hidden" />
         <div className="sticky top-[4.5rem] -ml-0.5 h-[calc(100vh-4.5rem)] overflow-y-auto py-16 pl-0.5">
@@ -42,18 +43,6 @@ export default function WikiLayout({ children, tableOfContents }: any) {
       </div>
       <div className="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
         <article>
-          {(title || section) && (
-            <header className="mb-9 space-y-1">
-              {section && (
-                <p className="font-display text-sm font-medium text-sky-500">{section.title}</p>
-              )}
-              {title && (
-                <h1 className="font-display text-3xl tracking-tight text-slate-900 dark:text-white">
-                  {title}
-                </h1>
-              )}
-            </header>
-          )}
           <Prose>{children}</Prose>
         </article>
         <dl className="mt-12 flex border-t border-slate-200 pt-6 dark:border-slate-800">

@@ -53,7 +53,7 @@ export const Guides: CollectionConfig = {
               name: 'layout',
               label: false,
               type: 'blocks',
-              // minRows: 1,
+              minRows: 1,
               blocks: [Accordion, Content, Media, MediaContent, MediaSlider],
             },
           ],
