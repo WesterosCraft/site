@@ -1,6 +1,8 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { request } from 'graphql-request'
+import useSWR from 'swr'
+import { useCallback, useEffect, useState, use } from 'react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import clsx from 'clsx'
@@ -8,10 +10,15 @@ import clsx from 'clsx'
 import { Navigation } from '../_components/navigation'
 import { Prose } from '../_components/prose'
 import { fetchLocationBySlug } from '@/lib/payload'
+import { LocationQuery } from '@/lib/queries'
 
 const title = 'TITLE: TODO'
 
-export default async function WikiLayout({ children, tableOfContents }: any) {
+// const fetcher = (query: string) => request('http://localhost:3000/api/graphql', query)
+
+export default function WikiLayout({ children, tableOfContents }: any) {
+  // const { data, error } = useSWR(LocationQuery('winterfell'), fetcher)
+
   const router = useRouter()
   const pathname = usePathname()
   const isHomePage = pathname === '/'

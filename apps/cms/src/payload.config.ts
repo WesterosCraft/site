@@ -16,6 +16,7 @@ import Footer from './globals/Footer'
 import { adapter } from './s3-adapter'
 
 export default buildConfig({
+  cors: '*',
   serverURL: process.env.PAYLOAD_URL,
   admin: {
     user: Users.slug,
