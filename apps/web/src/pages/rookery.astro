@@ -1,39 +1,26 @@
 ---
 import RootLayout from "@layouts/root.astro";
 import ContainerBorder from "@components/container-border.astro";
-import {
-  TypographyH1,
-  TypographyH2,
-  TypographyH4,
-  TypographyP,
-} from "@components/typography";
+import { TypographyH2, TypographyH4 } from "@components/typography";
 import { Button } from "@components/ui/button";
+import { getRookeryPage } from "@lib/payload";
+import PageHeader from "@components/page-header.astro";
 
-const editions = [{}, {}, {}, {}, {}, {}, {}, {}];
+const data = await getRookeryPage();
+
+const editions = data?.layout?.find(
+  (k) => k?.blockType === "rookery-editions"
+  // @ts-ignore
+)?.editions;
 ---
 
 <RootLayout title='The Rookery'>
   <div class='flex flex-col w-full'>
-    <ContainerBorder
-      className='flex flex-col w-full mx-auto py-16 sm:py-20 px-4 items-center'
-      variant='light'
-    >
-      <div class='flex flex-col md:flex-row items-center gap-12'>
-        <img
-          class='w-[100px] md:w-[120px]'
-          alt='Raven'
-          src='/three-eyed-raven_58x58.png'
-        />
-        <div class='max-w-2xl text-center sm:text-left'>
-          <TypographyH1>The Rookery</TypographyH1>
-          <TypographyH4 className='max-w-3xl mt-6'>
-            The Rookery is a community created magazine that details all the
-            latest happenings in the realm of WesterosCraft. Check in to keep up
-            to date with the server! Sent once a quarter.
-          </TypographyH4>
-        </div>
-      </div>
-    </ContainerBorder>
+    <PageHeader
+      title='The Rookery'
+      copy='The Rookery is a community created magazine that details all the latest happenings in the realm of WesterosCraft. Check in to keep up to date with the server! Sent once a quarter.'
+    />
+
     <div class='w-full bg-primaryDark'>
       <ContainerBorder variant='dark' className='py-24 sm:py-32 px-4'>
         <div class='flex justify-center items-center w-full max-w-5xl mx-auto'>
@@ -81,19 +68,19 @@ const editions = [{}, {}, {}, {}, {}, {}, {}, {}];
           class='grid gap-y-12 gap-x-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full'
         >
           {
-            editions.map((edition) => (
+            editions?.map((edition: any) => (
               <div class='flex flex-col gap-3 items-center justify-center'>
                 <img
                   width={336}
                   height={435}
-                  src='https://westeroscraft.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2F1as7cn02%2Fproduction%2Fc3a7baff6ccef3e28cbec205a660ac9ce6cc921b-875x1128.jpg&w=384&q=75'
-                  alt={"Rookery edition"}
+                  src={edition?.thumbnail?.url}
+                  alt={edition?.name || "Rookery edition"}
                 />
                 <div class='flex max-w-[336px] flex-row w-full justify-between'>
-                  <TypographyH4>title</TypographyH4>
+                  <TypographyH4>{edition?.name}</TypographyH4>
                   <a
                     class='font-medium underline decoration-primaryRed underline-offset-4'
-                    href='https://westeroscraft.com'
+                    href={edition?.link || ""}
                     target='_blank'
                   >
                     Read Edition

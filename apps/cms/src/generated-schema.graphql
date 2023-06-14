@@ -2,9 +2,6 @@ type Query {
   Category(id: String!, draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Category
   Categories(where: Category_where, draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, page: Int, limit: Int, sort: String): Categories
   docAccessCategory(id: String!): categoriesDocAccess
-  Post(id: String!, draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Post
-  Posts(where: Post_where, draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, page: Int, limit: Int, sort: String): Posts
-  docAccessPost(id: String!): postsDocAccess
   Tag(id: String!, draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Tag
   Tags(where: Tag_where, draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, page: Int, limit: Int, sort: String): Tags
   docAccessTag(id: String!): tagsDocAccess
@@ -16,9 +13,6 @@ type Query {
   Media(id: String!, draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
   allMedia(where: Media_where, draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, page: Int, limit: Int, sort: String): allMedia
   docAccessMedia(id: String!): mediaDocAccess
-  RookeryEdition(id: String!, draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): RookeryEdition
-  RookeryEditions(where: RookeryEdition_where, draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, page: Int, limit: Int, sort: String): RookeryEditions
-  docAccessRookeryEdition(id: String!): rookery_editionsDocAccess
   Page(id: String!, draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Page
   Pages(where: Page_where, draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, page: Int, limit: Int, sort: String): Pages
   docAccessPage(id: String!): pagesDocAccess
@@ -169,461 +163,9 @@ type CategoriesDeleteDocAccess {
   where: JSONObject
 }
 
-type Post {
-  id: String
-  title: String
-  author(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): User
-  publishedDate: DateTime
-  category(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Category
-  tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
-  content(depth: Int): JSON
-  status: Post_status
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-type User {
-  id: String
-  name: String
-  updatedAt: DateTime
-  createdAt: DateTime
-  email: EmailAddress
-  resetPasswordToken: String
-  resetPasswordExpiration: DateTime
-  loginAttempts: Float
-  lockUntil: DateTime
-  password: String!
-}
-
-"""
-A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
-"""
-scalar DateTime
-
-"""
-A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
-"""
-scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
-
 type Tag {
   id: String
   name: String
-}
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
-
-enum Post_status {
-  draft
-  published
-}
-
-type Posts {
-  docs: [Post]
-  totalDocs: Int
-  offset: Int
-  limit: Int
-  totalPages: Int
-  page: Int
-  pagingCounter: Int
-  hasPrevPage: Boolean
-  hasNextPage: Boolean
-  prevPage: Int
-  nextPage: Int
-}
-
-input Post_where {
-  title: Post_title_operator
-  author: Post_author_operator
-  publishedDate: Post_publishedDate_operator
-  category: Post_category_operator
-  tags: Post_tags_operator
-  content: Post_content_operator
-  status: Post_status_operator
-  updatedAt: Post_updatedAt_operator
-  createdAt: Post_createdAt_operator
-  id: Post_id_operator
-  OR: [Post_where_or]
-  AND: [Post_where_and]
-}
-
-input Post_title_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Post_author_operator {
-  equals: String
-  not_equals: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Post_publishedDate_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Post_category_operator {
-  equals: String
-  not_equals: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Post_tags_operator {
-  equals: String
-  not_equals: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Post_content_operator {
-  equals: JSON
-  not_equals: JSON
-  like: JSON
-  contains: JSON
-  exists: Boolean
-}
-
-input Post_status_operator {
-  equals: Post_status_Input
-  not_equals: Post_status_Input
-  in: [Post_status_Input]
-  not_in: [Post_status_Input]
-  all: [Post_status_Input]
-  exists: Boolean
-}
-
-enum Post_status_Input {
-  draft
-  published
-}
-
-input Post_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Post_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Post_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Post_where_or {
-  title: Post_title_operator
-  author: Post_author_operator
-  publishedDate: Post_publishedDate_operator
-  category: Post_category_operator
-  tags: Post_tags_operator
-  content: Post_content_operator
-  status: Post_status_operator
-  updatedAt: Post_updatedAt_operator
-  createdAt: Post_createdAt_operator
-  id: Post_id_operator
-}
-
-input Post_where_and {
-  title: Post_title_operator
-  author: Post_author_operator
-  publishedDate: Post_publishedDate_operator
-  category: Post_category_operator
-  tags: Post_tags_operator
-  content: Post_content_operator
-  status: Post_status_operator
-  updatedAt: Post_updatedAt_operator
-  createdAt: Post_createdAt_operator
-  id: Post_id_operator
-}
-
-type postsDocAccess {
-  fields: PostsDocAccessFields
-  create: PostsCreateDocAccess
-  read: PostsReadDocAccess
-  update: PostsUpdateDocAccess
-  delete: PostsDeleteDocAccess
-}
-
-type PostsDocAccessFields {
-  title: PostsDocAccessFields_title
-  author: PostsDocAccessFields_author
-  publishedDate: PostsDocAccessFields_publishedDate
-  category: PostsDocAccessFields_category
-  tags: PostsDocAccessFields_tags
-  content: PostsDocAccessFields_content
-  status: PostsDocAccessFields_status
-  updatedAt: PostsDocAccessFields_updatedAt
-  createdAt: PostsDocAccessFields_createdAt
-}
-
-type PostsDocAccessFields_title {
-  create: PostsDocAccessFields_title_Create
-  read: PostsDocAccessFields_title_Read
-  update: PostsDocAccessFields_title_Update
-  delete: PostsDocAccessFields_title_Delete
-}
-
-type PostsDocAccessFields_title_Create {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_title_Read {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_title_Update {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_title_Delete {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_author {
-  create: PostsDocAccessFields_author_Create
-  read: PostsDocAccessFields_author_Read
-  update: PostsDocAccessFields_author_Update
-  delete: PostsDocAccessFields_author_Delete
-}
-
-type PostsDocAccessFields_author_Create {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_author_Read {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_author_Update {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_author_Delete {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_publishedDate {
-  create: PostsDocAccessFields_publishedDate_Create
-  read: PostsDocAccessFields_publishedDate_Read
-  update: PostsDocAccessFields_publishedDate_Update
-  delete: PostsDocAccessFields_publishedDate_Delete
-}
-
-type PostsDocAccessFields_publishedDate_Create {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_publishedDate_Read {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_publishedDate_Update {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_publishedDate_Delete {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_category {
-  create: PostsDocAccessFields_category_Create
-  read: PostsDocAccessFields_category_Read
-  update: PostsDocAccessFields_category_Update
-  delete: PostsDocAccessFields_category_Delete
-}
-
-type PostsDocAccessFields_category_Create {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_category_Read {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_category_Update {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_category_Delete {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_tags {
-  create: PostsDocAccessFields_tags_Create
-  read: PostsDocAccessFields_tags_Read
-  update: PostsDocAccessFields_tags_Update
-  delete: PostsDocAccessFields_tags_Delete
-}
-
-type PostsDocAccessFields_tags_Create {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_tags_Read {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_tags_Update {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_tags_Delete {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_content {
-  create: PostsDocAccessFields_content_Create
-  read: PostsDocAccessFields_content_Read
-  update: PostsDocAccessFields_content_Update
-  delete: PostsDocAccessFields_content_Delete
-}
-
-type PostsDocAccessFields_content_Create {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_content_Read {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_content_Update {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_content_Delete {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_status {
-  create: PostsDocAccessFields_status_Create
-  read: PostsDocAccessFields_status_Read
-  update: PostsDocAccessFields_status_Update
-  delete: PostsDocAccessFields_status_Delete
-}
-
-type PostsDocAccessFields_status_Create {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_status_Read {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_status_Update {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_status_Delete {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_updatedAt {
-  create: PostsDocAccessFields_updatedAt_Create
-  read: PostsDocAccessFields_updatedAt_Read
-  update: PostsDocAccessFields_updatedAt_Update
-  delete: PostsDocAccessFields_updatedAt_Delete
-}
-
-type PostsDocAccessFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_createdAt {
-  create: PostsDocAccessFields_createdAt_Create
-  read: PostsDocAccessFields_createdAt_Read
-  update: PostsDocAccessFields_createdAt_Update
-  delete: PostsDocAccessFields_createdAt_Delete
-}
-
-type PostsDocAccessFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type PostsCreateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type PostsReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type PostsUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type PostsDeleteDocAccess {
-  permission: Boolean!
-  where: JSONObject
 }
 
 type Tags {
@@ -733,6 +275,29 @@ type TagsDeleteDocAccess {
   permission: Boolean!
   where: JSONObject
 }
+
+type User {
+  id: String
+  name: String
+  updatedAt: DateTime
+  createdAt: DateTime
+  email: EmailAddress
+  resetPasswordToken: String
+  resetPasswordExpiration: DateTime
+  loginAttempts: Float
+  lockUntil: DateTime
+  password: String!
+}
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+"""
+A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
+"""
+scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
 
 type Users {
   docs: [User]
@@ -1415,376 +980,6 @@ type MediaDeleteDocAccess {
   where: JSONObject
 }
 
-type RookeryEdition {
-  id: String
-  name: String!
-  description: String
-  link: String!
-  thumbnail(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, where: RookeryEdition_Thumbnail_where): Media!
-}
-
-input RookeryEdition_Thumbnail_where {
-  prefix: RookeryEdition_Thumbnail_prefix_operator
-  updatedAt: RookeryEdition_Thumbnail_updatedAt_operator
-  createdAt: RookeryEdition_Thumbnail_createdAt_operator
-  url: RookeryEdition_Thumbnail_url_operator
-  filename: RookeryEdition_Thumbnail_filename_operator
-  mimeType: RookeryEdition_Thumbnail_mimeType_operator
-  filesize: RookeryEdition_Thumbnail_filesize_operator
-  width: RookeryEdition_Thumbnail_width_operator
-  height: RookeryEdition_Thumbnail_height_operator
-  id: RookeryEdition_Thumbnail_id_operator
-  OR: [RookeryEdition_Thumbnail_where_or]
-  AND: [RookeryEdition_Thumbnail_where_and]
-}
-
-input RookeryEdition_Thumbnail_prefix_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input RookeryEdition_Thumbnail_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input RookeryEdition_Thumbnail_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input RookeryEdition_Thumbnail_url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input RookeryEdition_Thumbnail_filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input RookeryEdition_Thumbnail_mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input RookeryEdition_Thumbnail_filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input RookeryEdition_Thumbnail_width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input RookeryEdition_Thumbnail_height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input RookeryEdition_Thumbnail_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input RookeryEdition_Thumbnail_where_or {
-  prefix: RookeryEdition_Thumbnail_prefix_operator
-  updatedAt: RookeryEdition_Thumbnail_updatedAt_operator
-  createdAt: RookeryEdition_Thumbnail_createdAt_operator
-  url: RookeryEdition_Thumbnail_url_operator
-  filename: RookeryEdition_Thumbnail_filename_operator
-  mimeType: RookeryEdition_Thumbnail_mimeType_operator
-  filesize: RookeryEdition_Thumbnail_filesize_operator
-  width: RookeryEdition_Thumbnail_width_operator
-  height: RookeryEdition_Thumbnail_height_operator
-  id: RookeryEdition_Thumbnail_id_operator
-}
-
-input RookeryEdition_Thumbnail_where_and {
-  prefix: RookeryEdition_Thumbnail_prefix_operator
-  updatedAt: RookeryEdition_Thumbnail_updatedAt_operator
-  createdAt: RookeryEdition_Thumbnail_createdAt_operator
-  url: RookeryEdition_Thumbnail_url_operator
-  filename: RookeryEdition_Thumbnail_filename_operator
-  mimeType: RookeryEdition_Thumbnail_mimeType_operator
-  filesize: RookeryEdition_Thumbnail_filesize_operator
-  width: RookeryEdition_Thumbnail_width_operator
-  height: RookeryEdition_Thumbnail_height_operator
-  id: RookeryEdition_Thumbnail_id_operator
-}
-
-type RookeryEditions {
-  docs: [RookeryEdition]
-  totalDocs: Int
-  offset: Int
-  limit: Int
-  totalPages: Int
-  page: Int
-  pagingCounter: Int
-  hasPrevPage: Boolean
-  hasNextPage: Boolean
-  prevPage: Int
-  nextPage: Int
-}
-
-input RookeryEdition_where {
-  name: RookeryEdition_name_operator
-  description: RookeryEdition_description_operator
-  link: RookeryEdition_link_operator
-  thumbnail: RookeryEdition_thumbnail_operator
-  id: RookeryEdition_id_operator
-  OR: [RookeryEdition_where_or]
-  AND: [RookeryEdition_where_and]
-}
-
-input RookeryEdition_name_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input RookeryEdition_description_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input RookeryEdition_link_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input RookeryEdition_thumbnail_operator {
-  equals: String
-  not_equals: String
-}
-
-input RookeryEdition_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input RookeryEdition_where_or {
-  name: RookeryEdition_name_operator
-  description: RookeryEdition_description_operator
-  link: RookeryEdition_link_operator
-  thumbnail: RookeryEdition_thumbnail_operator
-  id: RookeryEdition_id_operator
-}
-
-input RookeryEdition_where_and {
-  name: RookeryEdition_name_operator
-  description: RookeryEdition_description_operator
-  link: RookeryEdition_link_operator
-  thumbnail: RookeryEdition_thumbnail_operator
-  id: RookeryEdition_id_operator
-}
-
-type rookery_editionsDocAccess {
-  fields: RookeryEditionsDocAccessFields
-  create: RookeryEditionsCreateDocAccess
-  read: RookeryEditionsReadDocAccess
-  update: RookeryEditionsUpdateDocAccess
-  delete: RookeryEditionsDeleteDocAccess
-}
-
-type RookeryEditionsDocAccessFields {
-  name: RookeryEditionsDocAccessFields_name
-  description: RookeryEditionsDocAccessFields_description
-  link: RookeryEditionsDocAccessFields_link
-  thumbnail: RookeryEditionsDocAccessFields_thumbnail
-}
-
-type RookeryEditionsDocAccessFields_name {
-  create: RookeryEditionsDocAccessFields_name_Create
-  read: RookeryEditionsDocAccessFields_name_Read
-  update: RookeryEditionsDocAccessFields_name_Update
-  delete: RookeryEditionsDocAccessFields_name_Delete
-}
-
-type RookeryEditionsDocAccessFields_name_Create {
-  permission: Boolean!
-}
-
-type RookeryEditionsDocAccessFields_name_Read {
-  permission: Boolean!
-}
-
-type RookeryEditionsDocAccessFields_name_Update {
-  permission: Boolean!
-}
-
-type RookeryEditionsDocAccessFields_name_Delete {
-  permission: Boolean!
-}
-
-type RookeryEditionsDocAccessFields_description {
-  create: RookeryEditionsDocAccessFields_description_Create
-  read: RookeryEditionsDocAccessFields_description_Read
-  update: RookeryEditionsDocAccessFields_description_Update
-  delete: RookeryEditionsDocAccessFields_description_Delete
-}
-
-type RookeryEditionsDocAccessFields_description_Create {
-  permission: Boolean!
-}
-
-type RookeryEditionsDocAccessFields_description_Read {
-  permission: Boolean!
-}
-
-type RookeryEditionsDocAccessFields_description_Update {
-  permission: Boolean!
-}
-
-type RookeryEditionsDocAccessFields_description_Delete {
-  permission: Boolean!
-}
-
-type RookeryEditionsDocAccessFields_link {
-  create: RookeryEditionsDocAccessFields_link_Create
-  read: RookeryEditionsDocAccessFields_link_Read
-  update: RookeryEditionsDocAccessFields_link_Update
-  delete: RookeryEditionsDocAccessFields_link_Delete
-}
-
-type RookeryEditionsDocAccessFields_link_Create {
-  permission: Boolean!
-}
-
-type RookeryEditionsDocAccessFields_link_Read {
-  permission: Boolean!
-}
-
-type RookeryEditionsDocAccessFields_link_Update {
-  permission: Boolean!
-}
-
-type RookeryEditionsDocAccessFields_link_Delete {
-  permission: Boolean!
-}
-
-type RookeryEditionsDocAccessFields_thumbnail {
-  create: RookeryEditionsDocAccessFields_thumbnail_Create
-  read: RookeryEditionsDocAccessFields_thumbnail_Read
-  update: RookeryEditionsDocAccessFields_thumbnail_Update
-  delete: RookeryEditionsDocAccessFields_thumbnail_Delete
-}
-
-type RookeryEditionsDocAccessFields_thumbnail_Create {
-  permission: Boolean!
-}
-
-type RookeryEditionsDocAccessFields_thumbnail_Read {
-  permission: Boolean!
-}
-
-type RookeryEditionsDocAccessFields_thumbnail_Update {
-  permission: Boolean!
-}
-
-type RookeryEditionsDocAccessFields_thumbnail_Delete {
-  permission: Boolean!
-}
-
-type RookeryEditionsCreateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type RookeryEditionsReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type RookeryEditionsUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type RookeryEditionsDeleteDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
 type Page {
   id: String
   title: String
@@ -1826,6 +1021,11 @@ type Page_Hero_Basic {
   links: [Page_Hero_Basic_Links!]
 }
 
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
 type Page_Hero_Basic_Links {
   link: Page_Hero_Basic_Links_Link
   id: String
@@ -1858,10 +1058,9 @@ type Page_Hero_Basic_Links_Link_Reference_Relationship {
 
 enum Page_Hero_Basic_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union Page_Hero_Basic_Links_Link_Reference = Page | Post
+union Page_Hero_Basic_Links_Link_Reference = Page
 
 type Page_Hero_Content {
   richText(depth: Int): JSON
@@ -1900,10 +1099,9 @@ type Page_Hero_Content_Links_Link_Reference_Relationship {
 
 enum Page_Hero_Content_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union Page_Hero_Content_Links_Link_Reference = Page | Post
+union Page_Hero_Content_Links_Link_Reference = Page
 
 type Page_Hero_ContentMedia {
   richText(depth: Int): JSON
@@ -1944,10 +1142,9 @@ type Page_Hero_ContentMedia_Links_Link_Reference_Relationship {
 
 enum Page_Hero_ContentMedia_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union Page_Hero_ContentMedia_Links_Link_Reference = Page | Post
+union Page_Hero_ContentMedia_Links_Link_Reference = Page
 
 input Page_Hero_ContentMedia_Media_where {
   prefix: Page_Hero_ContentMedia_Media_prefix_operator
@@ -2301,10 +1498,9 @@ type Page_Hero_ContentSidebar_Links_Link_Reference_Relationship {
 
 enum Page_Hero_ContentSidebar_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union Page_Hero_ContentSidebar_Links_Link_Reference = Page | Post
+union Page_Hero_ContentSidebar_Links_Link_Reference = Page
 
 type Page_Hero_FullscreenBackground {
   backgroundMedia(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, where: Page_Hero_FullscreenBackground_BackgroundMedia_where): Media
@@ -2492,10 +1688,9 @@ type Page_Hero_FullscreenBackground_Links_Link_Reference_Relationship {
 
 enum Page_Hero_FullscreenBackground_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union Page_Hero_FullscreenBackground_Links_Link_Reference = Page | Post
+union Page_Hero_FullscreenBackground_Links_Link_Reference = Page
 
 type Page_Hero_QuickNav {
   backgroundMedia(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, where: Page_Hero_QuickNav_BackgroundMedia_where): Media
@@ -2684,10 +1879,9 @@ type Page_Hero_QuickNav_Links_Link_Reference_Relationship {
 
 enum Page_Hero_QuickNav_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union Page_Hero_QuickNav_Links_Link_Reference = Page | Post
+union Page_Hero_QuickNav_Links_Link_Reference = Page
 
 type Page_Hero_QuickNav_Columns {
   heading: String
@@ -2715,10 +1909,9 @@ type Page_Hero_QuickNav_Columns_Link_Reference_Relationship {
 
 enum Page_Hero_QuickNav_Columns_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union Page_Hero_QuickNav_Columns_Link_Reference = Page | Post
+union Page_Hero_QuickNav_Columns_Link_Reference = Page
 
 type Page_Hero_FullscreenSlider {
   useStaticContent: Boolean
@@ -2759,10 +1952,9 @@ type Page_Hero_FullscreenSlider_Links_Link_Reference_Relationship {
 
 enum Page_Hero_FullscreenSlider_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union Page_Hero_FullscreenSlider_Links_Link_Reference = Page | Post
+union Page_Hero_FullscreenSlider_Links_Link_Reference = Page
 
 type Page_Hero_FullscreenSlider_Slides {
   backgroundMedia(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, where: Page_Hero_FullscreenSlider_Slides_BackgroundMedia_where): Media
@@ -2951,12 +2143,11 @@ type Page_Hero_FullscreenSlider_Slides_Links_Link_Reference_Relationship {
 
 enum Page_Hero_FullscreenSlider_Slides_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union Page_Hero_FullscreenSlider_Slides_Links_Link_Reference = Page | Post
+union Page_Hero_FullscreenSlider_Slides_Links_Link_Reference = Page
 
-union Page_Layout = Accordion | Content | MediaBlock | MediaContent | MediaSlider | Banner | AnimatedHeading | LatestEdition
+union Page_Layout = Accordion | Content | MediaBlock | MediaContent | MediaSlider | Banner | AnimatedHeading | LatestEdition | RookeryEditions
 
 type Accordion {
   appearance: Accordion_appearance
@@ -3024,10 +2215,9 @@ type Accordion_Sections_Columns_Links_Link_Reference_Relationship {
 
 enum Accordion_Sections_Columns_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union Accordion_Sections_Columns_Links_Link_Reference = Page | Post
+union Accordion_Sections_Columns_Links_Link_Reference = Page
 
 type Content {
   columns: [Content_Columns!]
@@ -3589,10 +2779,9 @@ type MediaContent_Links_Link_Reference_Relationship {
 
 enum MediaContent_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union MediaContent_Links_Link_Reference = Page | Post
+union MediaContent_Links_Link_Reference = Page
 
 type MediaSlider {
   introContent(depth: Int): JSON
@@ -3783,10 +2972,9 @@ type Banner_Link_Reference_Relationship {
 
 enum Banner_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union Banner_Link_Reference = Page | Post
+union Banner_Link_Reference = Page
 
 type AnimatedHeading {
   label: String
@@ -3826,10 +3014,9 @@ type LatestEdition_Link_Reference_Relationship {
 
 enum LatestEdition_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union LatestEdition_Link_Reference = Page | Post
+union LatestEdition_Link_Reference = Page
 
 input LatestEdition_Media_where {
   prefix: LatestEdition_Media_prefix_operator
@@ -3977,6 +3164,169 @@ input LatestEdition_Media_where_and {
   width: LatestEdition_Media_width_operator
   height: LatestEdition_Media_height_operator
   id: LatestEdition_Media_id_operator
+}
+
+type RookeryEditions {
+  editions: [RookeryEditions_Editions!]
+  id: String
+  blockName: String
+  blockType: String
+}
+
+type RookeryEditions_Editions {
+  name: String
+  description: String
+  link: String
+  thumbnail(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, where: RookeryEditions_Editions_Thumbnail_where): Media
+  id: String
+}
+
+input RookeryEditions_Editions_Thumbnail_where {
+  prefix: RookeryEditions_Editions_Thumbnail_prefix_operator
+  updatedAt: RookeryEditions_Editions_Thumbnail_updatedAt_operator
+  createdAt: RookeryEditions_Editions_Thumbnail_createdAt_operator
+  url: RookeryEditions_Editions_Thumbnail_url_operator
+  filename: RookeryEditions_Editions_Thumbnail_filename_operator
+  mimeType: RookeryEditions_Editions_Thumbnail_mimeType_operator
+  filesize: RookeryEditions_Editions_Thumbnail_filesize_operator
+  width: RookeryEditions_Editions_Thumbnail_width_operator
+  height: RookeryEditions_Editions_Thumbnail_height_operator
+  id: RookeryEditions_Editions_Thumbnail_id_operator
+  OR: [RookeryEditions_Editions_Thumbnail_where_or]
+  AND: [RookeryEditions_Editions_Thumbnail_where_and]
+}
+
+input RookeryEditions_Editions_Thumbnail_prefix_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input RookeryEditions_Editions_Thumbnail_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input RookeryEditions_Editions_Thumbnail_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input RookeryEditions_Editions_Thumbnail_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input RookeryEditions_Editions_Thumbnail_filename_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input RookeryEditions_Editions_Thumbnail_mimeType_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input RookeryEditions_Editions_Thumbnail_filesize_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input RookeryEditions_Editions_Thumbnail_width_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input RookeryEditions_Editions_Thumbnail_height_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input RookeryEditions_Editions_Thumbnail_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input RookeryEditions_Editions_Thumbnail_where_or {
+  prefix: RookeryEditions_Editions_Thumbnail_prefix_operator
+  updatedAt: RookeryEditions_Editions_Thumbnail_updatedAt_operator
+  createdAt: RookeryEditions_Editions_Thumbnail_createdAt_operator
+  url: RookeryEditions_Editions_Thumbnail_url_operator
+  filename: RookeryEditions_Editions_Thumbnail_filename_operator
+  mimeType: RookeryEditions_Editions_Thumbnail_mimeType_operator
+  filesize: RookeryEditions_Editions_Thumbnail_filesize_operator
+  width: RookeryEditions_Editions_Thumbnail_width_operator
+  height: RookeryEditions_Editions_Thumbnail_height_operator
+  id: RookeryEditions_Editions_Thumbnail_id_operator
+}
+
+input RookeryEditions_Editions_Thumbnail_where_and {
+  prefix: RookeryEditions_Editions_Thumbnail_prefix_operator
+  updatedAt: RookeryEditions_Editions_Thumbnail_updatedAt_operator
+  createdAt: RookeryEditions_Editions_Thumbnail_createdAt_operator
+  url: RookeryEditions_Editions_Thumbnail_url_operator
+  filename: RookeryEditions_Editions_Thumbnail_filename_operator
+  mimeType: RookeryEditions_Editions_Thumbnail_mimeType_operator
+  filesize: RookeryEditions_Editions_Thumbnail_filesize_operator
+  width: RookeryEditions_Editions_Thumbnail_width_operator
+  height: RookeryEditions_Editions_Thumbnail_height_operator
+  id: RookeryEditions_Editions_Thumbnail_id_operator
 }
 
 type Page_Breadcrumbs {
@@ -4142,7 +3492,6 @@ input Page_hero__basic__links__link__reference_Relation {
 
 enum Page_hero__basic__links__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input Page_hero__basic__links__link__url_operator {
@@ -4197,7 +3546,6 @@ input Page_hero__content__links__link__reference_Relation {
 
 enum Page_hero__content__links__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input Page_hero__content__links__link__url_operator {
@@ -4252,7 +3600,6 @@ input Page_hero__contentMedia__links__link__reference_Relation {
 
 enum Page_hero__contentMedia__links__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input Page_hero__contentMedia__links__link__url_operator {
@@ -4363,7 +3710,6 @@ input Page_hero__contentSidebar__links__link__reference_Relation {
 
 enum Page_hero__contentSidebar__links__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input Page_hero__contentSidebar__links__link__url_operator {
@@ -4431,7 +3777,6 @@ input Page_hero__fullscreenBackground__links__link__reference_Relation {
 
 enum Page_hero__fullscreenBackground__links__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input Page_hero__fullscreenBackground__links__link__url_operator {
@@ -4491,7 +3836,6 @@ input Page_hero__quickNav__links__link__reference_Relation {
 
 enum Page_hero__quickNav__links__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input Page_hero__quickNav__links__link__url_operator {
@@ -4548,7 +3892,6 @@ input Page_hero__quickNav__columns__link__reference_Relation {
 
 enum Page_hero__quickNav__columns__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input Page_hero__quickNav__columns__link__url_operator {
@@ -4609,7 +3952,6 @@ input Page_hero__fullscreenSlider__links__link__reference_Relation {
 
 enum Page_hero__fullscreenSlider__links__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input Page_hero__fullscreenSlider__links__link__url_operator {
@@ -4669,7 +4011,6 @@ input Page_hero__fullscreenSlider__slides__links__link__reference_Relation {
 
 enum Page_hero__fullscreenSlider__slides__links__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input Page_hero__fullscreenSlider__slides__links__link__url_operator {
@@ -8251,10 +7592,9 @@ type PageVersion_Version_Hero_Basic_Links_Link_Reference_Relationship {
 
 enum PageVersion_Version_Hero_Basic_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union PageVersion_Version_Hero_Basic_Links_Link_Reference = Page | Post
+union PageVersion_Version_Hero_Basic_Links_Link_Reference = Page
 
 type PageVersion_Version_Hero_Content {
   richText(depth: Int): JSON
@@ -8293,10 +7633,9 @@ type PageVersion_Version_Hero_Content_Links_Link_Reference_Relationship {
 
 enum PageVersion_Version_Hero_Content_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union PageVersion_Version_Hero_Content_Links_Link_Reference = Page | Post
+union PageVersion_Version_Hero_Content_Links_Link_Reference = Page
 
 type PageVersion_Version_Hero_ContentMedia {
   richText(depth: Int): JSON
@@ -8337,10 +7676,9 @@ type PageVersion_Version_Hero_ContentMedia_Links_Link_Reference_Relationship {
 
 enum PageVersion_Version_Hero_ContentMedia_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union PageVersion_Version_Hero_ContentMedia_Links_Link_Reference = Page | Post
+union PageVersion_Version_Hero_ContentMedia_Links_Link_Reference = Page
 
 input PageVersion_Version_Hero_ContentMedia_Media_where {
   prefix: PageVersion_Version_Hero_ContentMedia_Media_prefix_operator
@@ -8694,10 +8032,9 @@ type PageVersion_Version_Hero_ContentSidebar_Links_Link_Reference_Relationship {
 
 enum PageVersion_Version_Hero_ContentSidebar_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union PageVersion_Version_Hero_ContentSidebar_Links_Link_Reference = Page | Post
+union PageVersion_Version_Hero_ContentSidebar_Links_Link_Reference = Page
 
 type PageVersion_Version_Hero_FullscreenBackground {
   backgroundMedia(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, where: PageVersion_Version_Hero_FullscreenBackground_BackgroundMedia_where): Media
@@ -8885,10 +8222,9 @@ type PageVersion_Version_Hero_FullscreenBackground_Links_Link_Reference_Relation
 
 enum PageVersion_Version_Hero_FullscreenBackground_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union PageVersion_Version_Hero_FullscreenBackground_Links_Link_Reference = Page | Post
+union PageVersion_Version_Hero_FullscreenBackground_Links_Link_Reference = Page
 
 type PageVersion_Version_Hero_QuickNav {
   backgroundMedia(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, where: PageVersion_Version_Hero_QuickNav_BackgroundMedia_where): Media
@@ -9077,10 +8413,9 @@ type PageVersion_Version_Hero_QuickNav_Links_Link_Reference_Relationship {
 
 enum PageVersion_Version_Hero_QuickNav_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union PageVersion_Version_Hero_QuickNav_Links_Link_Reference = Page | Post
+union PageVersion_Version_Hero_QuickNav_Links_Link_Reference = Page
 
 type PageVersion_Version_Hero_QuickNav_Columns {
   heading: String
@@ -9108,10 +8443,9 @@ type PageVersion_Version_Hero_QuickNav_Columns_Link_Reference_Relationship {
 
 enum PageVersion_Version_Hero_QuickNav_Columns_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union PageVersion_Version_Hero_QuickNav_Columns_Link_Reference = Page | Post
+union PageVersion_Version_Hero_QuickNav_Columns_Link_Reference = Page
 
 type PageVersion_Version_Hero_FullscreenSlider {
   useStaticContent: Boolean
@@ -9152,10 +8486,9 @@ type PageVersion_Version_Hero_FullscreenSlider_Links_Link_Reference_Relationship
 
 enum PageVersion_Version_Hero_FullscreenSlider_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union PageVersion_Version_Hero_FullscreenSlider_Links_Link_Reference = Page | Post
+union PageVersion_Version_Hero_FullscreenSlider_Links_Link_Reference = Page
 
 type PageVersion_Version_Hero_FullscreenSlider_Slides {
   backgroundMedia(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, where: PageVersion_Version_Hero_FullscreenSlider_Slides_BackgroundMedia_where): Media
@@ -9344,12 +8677,11 @@ type PageVersion_Version_Hero_FullscreenSlider_Slides_Links_Link_Reference_Relat
 
 enum PageVersion_Version_Hero_FullscreenSlider_Slides_Links_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union PageVersion_Version_Hero_FullscreenSlider_Slides_Links_Link_Reference = Page | Post
+union PageVersion_Version_Hero_FullscreenSlider_Slides_Links_Link_Reference = Page
 
-union PageVersion_Version_Layout = Accordion | Content | MediaBlock | MediaContent | MediaSlider | Banner | AnimatedHeading | LatestEdition
+union PageVersion_Version_Layout = Accordion | Content | MediaBlock | MediaContent | MediaSlider | Banner | AnimatedHeading | LatestEdition | RookeryEditions
 
 type PageVersion_Version_Breadcrumbs {
   doc(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Page
@@ -9515,7 +8847,6 @@ input versionsPage_version__hero__basic__links__link__reference_Relation {
 
 enum versionsPage_version__hero__basic__links__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input versionsPage_version__hero__basic__links__link__url_operator {
@@ -9570,7 +8901,6 @@ input versionsPage_version__hero__content__links__link__reference_Relation {
 
 enum versionsPage_version__hero__content__links__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input versionsPage_version__hero__content__links__link__url_operator {
@@ -9625,7 +8955,6 @@ input versionsPage_version__hero__contentMedia__links__link__reference_Relation 
 
 enum versionsPage_version__hero__contentMedia__links__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input versionsPage_version__hero__contentMedia__links__link__url_operator {
@@ -9736,7 +9065,6 @@ input versionsPage_version__hero__contentSidebar__links__link__reference_Relatio
 
 enum versionsPage_version__hero__contentSidebar__links__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input versionsPage_version__hero__contentSidebar__links__link__url_operator {
@@ -9804,7 +9132,6 @@ input versionsPage_version__hero__fullscreenBackground__links__link__reference_R
 
 enum versionsPage_version__hero__fullscreenBackground__links__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input versionsPage_version__hero__fullscreenBackground__links__link__url_operator {
@@ -9864,7 +9191,6 @@ input versionsPage_version__hero__quickNav__links__link__reference_Relation {
 
 enum versionsPage_version__hero__quickNav__links__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input versionsPage_version__hero__quickNav__links__link__url_operator {
@@ -9921,7 +9247,6 @@ input versionsPage_version__hero__quickNav__columns__link__reference_Relation {
 
 enum versionsPage_version__hero__quickNav__columns__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input versionsPage_version__hero__quickNav__columns__link__url_operator {
@@ -9982,7 +9307,6 @@ input versionsPage_version__hero__fullscreenSlider__links__link__reference_Relat
 
 enum versionsPage_version__hero__fullscreenSlider__links__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input versionsPage_version__hero__fullscreenSlider__links__link__url_operator {
@@ -10042,7 +9366,6 @@ input versionsPage_version__hero__fullscreenSlider__slides__links__link__referen
 
 enum versionsPage_version__hero__fullscreenSlider__slides__links__link__reference_Relation_RelationTo {
   pages
-  posts
 }
 
 input versionsPage_version__hero__fullscreenSlider__slides__links__link__url_operator {
@@ -14035,10 +13358,9 @@ type MenuLink_Link_Reference_Relationship {
 
 enum MenuLink_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union MenuLink_Link_Reference = Page | Post
+union MenuLink_Link_Reference = Page
 
 type MenuDescription {
   content: String
@@ -14223,10 +13545,9 @@ type MenuFeature_Link_Reference_Relationship {
 
 enum MenuFeature_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union MenuFeature_Link_Reference = Page | Post
+union MenuFeature_Link_Reference = Page
 
 type MainMenu_Items_Link {
   type: MainMenu_Items_Link_type
@@ -14247,10 +13568,9 @@ type MainMenu_Items_Link_Reference_Relationship {
 
 enum MainMenu_Items_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union MainMenu_Items_Link_Reference = Page | Post
+union MainMenu_Items_Link_Reference = Page
 
 type mainMenuDocAccess {
   fields: MainMenuDocAccessFields
@@ -14639,10 +13959,9 @@ type Footer_Items_Link_Reference_Relationship {
 
 enum Footer_Items_Link_Reference_RelationTo {
   pages
-  posts
 }
 
-union Footer_Items_Link_Reference = Page | Post
+union Footer_Items_Link_Reference = Page
 
 type footerDocAccess {
   fields: FooterDocAccessFields
@@ -14997,11 +14316,9 @@ type Preference {
 type Access {
   canAccessAdmin: Boolean!
   categories: categoriesAccess
-  posts: postsAccess
   tags: tagsAccess
   users: usersAccess
   media: mediaAccess
-  rookery_editions: rookery_editionsAccess
   pages: pagesAccess
   locations: locationsAccess
   guides: guidesAccess
@@ -15060,253 +14377,6 @@ type CategoriesUpdateAccess {
 }
 
 type CategoriesDeleteAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type postsAccess {
-  fields: PostsFields
-  create: PostsCreateAccess
-  read: PostsReadAccess
-  update: PostsUpdateAccess
-  delete: PostsDeleteAccess
-}
-
-type PostsFields {
-  title: PostsFields_title
-  author: PostsFields_author
-  publishedDate: PostsFields_publishedDate
-  category: PostsFields_category
-  tags: PostsFields_tags
-  content: PostsFields_content
-  status: PostsFields_status
-  updatedAt: PostsFields_updatedAt
-  createdAt: PostsFields_createdAt
-}
-
-type PostsFields_title {
-  create: PostsFields_title_Create
-  read: PostsFields_title_Read
-  update: PostsFields_title_Update
-  delete: PostsFields_title_Delete
-}
-
-type PostsFields_title_Create {
-  permission: Boolean!
-}
-
-type PostsFields_title_Read {
-  permission: Boolean!
-}
-
-type PostsFields_title_Update {
-  permission: Boolean!
-}
-
-type PostsFields_title_Delete {
-  permission: Boolean!
-}
-
-type PostsFields_author {
-  create: PostsFields_author_Create
-  read: PostsFields_author_Read
-  update: PostsFields_author_Update
-  delete: PostsFields_author_Delete
-}
-
-type PostsFields_author_Create {
-  permission: Boolean!
-}
-
-type PostsFields_author_Read {
-  permission: Boolean!
-}
-
-type PostsFields_author_Update {
-  permission: Boolean!
-}
-
-type PostsFields_author_Delete {
-  permission: Boolean!
-}
-
-type PostsFields_publishedDate {
-  create: PostsFields_publishedDate_Create
-  read: PostsFields_publishedDate_Read
-  update: PostsFields_publishedDate_Update
-  delete: PostsFields_publishedDate_Delete
-}
-
-type PostsFields_publishedDate_Create {
-  permission: Boolean!
-}
-
-type PostsFields_publishedDate_Read {
-  permission: Boolean!
-}
-
-type PostsFields_publishedDate_Update {
-  permission: Boolean!
-}
-
-type PostsFields_publishedDate_Delete {
-  permission: Boolean!
-}
-
-type PostsFields_category {
-  create: PostsFields_category_Create
-  read: PostsFields_category_Read
-  update: PostsFields_category_Update
-  delete: PostsFields_category_Delete
-}
-
-type PostsFields_category_Create {
-  permission: Boolean!
-}
-
-type PostsFields_category_Read {
-  permission: Boolean!
-}
-
-type PostsFields_category_Update {
-  permission: Boolean!
-}
-
-type PostsFields_category_Delete {
-  permission: Boolean!
-}
-
-type PostsFields_tags {
-  create: PostsFields_tags_Create
-  read: PostsFields_tags_Read
-  update: PostsFields_tags_Update
-  delete: PostsFields_tags_Delete
-}
-
-type PostsFields_tags_Create {
-  permission: Boolean!
-}
-
-type PostsFields_tags_Read {
-  permission: Boolean!
-}
-
-type PostsFields_tags_Update {
-  permission: Boolean!
-}
-
-type PostsFields_tags_Delete {
-  permission: Boolean!
-}
-
-type PostsFields_content {
-  create: PostsFields_content_Create
-  read: PostsFields_content_Read
-  update: PostsFields_content_Update
-  delete: PostsFields_content_Delete
-}
-
-type PostsFields_content_Create {
-  permission: Boolean!
-}
-
-type PostsFields_content_Read {
-  permission: Boolean!
-}
-
-type PostsFields_content_Update {
-  permission: Boolean!
-}
-
-type PostsFields_content_Delete {
-  permission: Boolean!
-}
-
-type PostsFields_status {
-  create: PostsFields_status_Create
-  read: PostsFields_status_Read
-  update: PostsFields_status_Update
-  delete: PostsFields_status_Delete
-}
-
-type PostsFields_status_Create {
-  permission: Boolean!
-}
-
-type PostsFields_status_Read {
-  permission: Boolean!
-}
-
-type PostsFields_status_Update {
-  permission: Boolean!
-}
-
-type PostsFields_status_Delete {
-  permission: Boolean!
-}
-
-type PostsFields_updatedAt {
-  create: PostsFields_updatedAt_Create
-  read: PostsFields_updatedAt_Read
-  update: PostsFields_updatedAt_Update
-  delete: PostsFields_updatedAt_Delete
-}
-
-type PostsFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type PostsFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type PostsFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type PostsFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type PostsFields_createdAt {
-  create: PostsFields_createdAt_Create
-  read: PostsFields_createdAt_Read
-  update: PostsFields_createdAt_Update
-  delete: PostsFields_createdAt_Delete
-}
-
-type PostsFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type PostsFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type PostsFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type PostsFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type PostsCreateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type PostsReadAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type PostsUpdateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type PostsDeleteAccess {
   permission: Boolean!
   where: JSONObject
 }
@@ -15766,133 +14836,6 @@ type MediaUpdateAccess {
 }
 
 type MediaDeleteAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type rookery_editionsAccess {
-  fields: RookeryEditionsFields
-  create: RookeryEditionsCreateAccess
-  read: RookeryEditionsReadAccess
-  update: RookeryEditionsUpdateAccess
-  delete: RookeryEditionsDeleteAccess
-}
-
-type RookeryEditionsFields {
-  name: RookeryEditionsFields_name
-  description: RookeryEditionsFields_description
-  link: RookeryEditionsFields_link
-  thumbnail: RookeryEditionsFields_thumbnail
-}
-
-type RookeryEditionsFields_name {
-  create: RookeryEditionsFields_name_Create
-  read: RookeryEditionsFields_name_Read
-  update: RookeryEditionsFields_name_Update
-  delete: RookeryEditionsFields_name_Delete
-}
-
-type RookeryEditionsFields_name_Create {
-  permission: Boolean!
-}
-
-type RookeryEditionsFields_name_Read {
-  permission: Boolean!
-}
-
-type RookeryEditionsFields_name_Update {
-  permission: Boolean!
-}
-
-type RookeryEditionsFields_name_Delete {
-  permission: Boolean!
-}
-
-type RookeryEditionsFields_description {
-  create: RookeryEditionsFields_description_Create
-  read: RookeryEditionsFields_description_Read
-  update: RookeryEditionsFields_description_Update
-  delete: RookeryEditionsFields_description_Delete
-}
-
-type RookeryEditionsFields_description_Create {
-  permission: Boolean!
-}
-
-type RookeryEditionsFields_description_Read {
-  permission: Boolean!
-}
-
-type RookeryEditionsFields_description_Update {
-  permission: Boolean!
-}
-
-type RookeryEditionsFields_description_Delete {
-  permission: Boolean!
-}
-
-type RookeryEditionsFields_link {
-  create: RookeryEditionsFields_link_Create
-  read: RookeryEditionsFields_link_Read
-  update: RookeryEditionsFields_link_Update
-  delete: RookeryEditionsFields_link_Delete
-}
-
-type RookeryEditionsFields_link_Create {
-  permission: Boolean!
-}
-
-type RookeryEditionsFields_link_Read {
-  permission: Boolean!
-}
-
-type RookeryEditionsFields_link_Update {
-  permission: Boolean!
-}
-
-type RookeryEditionsFields_link_Delete {
-  permission: Boolean!
-}
-
-type RookeryEditionsFields_thumbnail {
-  create: RookeryEditionsFields_thumbnail_Create
-  read: RookeryEditionsFields_thumbnail_Read
-  update: RookeryEditionsFields_thumbnail_Update
-  delete: RookeryEditionsFields_thumbnail_Delete
-}
-
-type RookeryEditionsFields_thumbnail_Create {
-  permission: Boolean!
-}
-
-type RookeryEditionsFields_thumbnail_Read {
-  permission: Boolean!
-}
-
-type RookeryEditionsFields_thumbnail_Update {
-  permission: Boolean!
-}
-
-type RookeryEditionsFields_thumbnail_Delete {
-  permission: Boolean!
-}
-
-type RookeryEditionsCreateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type RookeryEditionsReadAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type RookeryEditionsUpdateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type RookeryEditionsDeleteAccess {
   permission: Boolean!
   where: JSONObject
 }
@@ -21094,9 +20037,6 @@ type Mutation {
   createCategory(data: mutationCategoryInput!, draft: Boolean, locale: LocaleInputType): Category
   updateCategory(id: String!, data: mutationCategoryUpdateInput!, draft: Boolean, autosave: Boolean, locale: LocaleInputType): Category
   deleteCategory(id: String!): Category
-  createPost(data: mutationPostInput!, draft: Boolean, locale: LocaleInputType): Post
-  updatePost(id: String!, data: mutationPostUpdateInput!, draft: Boolean, autosave: Boolean, locale: LocaleInputType): Post
-  deletePost(id: String!): Post
   createTag(data: mutationTagInput!, draft: Boolean, locale: LocaleInputType): Tag
   updateTag(id: String!, data: mutationTagUpdateInput!, draft: Boolean, autosave: Boolean, locale: LocaleInputType): Tag
   deleteTag(id: String!): Tag
@@ -21113,9 +20053,6 @@ type Mutation {
   createMedia(data: mutationMediaInput!, draft: Boolean, locale: LocaleInputType): Media
   updateMedia(id: String!, data: mutationMediaUpdateInput!, draft: Boolean, autosave: Boolean, locale: LocaleInputType): Media
   deleteMedia(id: String!): Media
-  createRookeryEdition(data: mutationRookeryEditionInput!, draft: Boolean, locale: LocaleInputType): RookeryEdition
-  updateRookeryEdition(id: String!, data: mutationRookeryEditionUpdateInput!, draft: Boolean, autosave: Boolean, locale: LocaleInputType): RookeryEdition
-  deleteRookeryEdition(id: String!): RookeryEdition
   createPage(data: mutationPageInput!, draft: Boolean, locale: LocaleInputType): Page
   updatePage(id: String!, data: mutationPageUpdateInput!, draft: Boolean, autosave: Boolean, locale: LocaleInputType): Page
   deletePage(id: String!): Page
@@ -21140,40 +20077,6 @@ input mutationCategoryInput {
 
 input mutationCategoryUpdateInput {
   name: String
-}
-
-input mutationPostInput {
-  title: String
-  author: String
-  publishedDate: String
-  category: String
-  tags: [String]
-  content: JSON
-  status: Post_status_MutationInput
-  updatedAt: String
-  createdAt: String
-}
-
-enum Post_status_MutationInput {
-  draft
-  published
-}
-
-input mutationPostUpdateInput {
-  title: String
-  author: String
-  publishedDate: String
-  category: String
-  tags: [String]
-  content: JSON
-  status: PostUpdate_status_MutationInput
-  updatedAt: String
-  createdAt: String
-}
-
-enum PostUpdate_status_MutationInput {
-  draft
-  published
 }
 
 input mutationTagInput {
@@ -21254,20 +20157,6 @@ input mutationMediaUpdateInput {
   height: Float
 }
 
-input mutationRookeryEditionInput {
-  name: String!
-  description: String
-  link: String!
-  thumbnail: String!
-}
-
-input mutationRookeryEditionUpdateInput {
-  name: String
-  description: String
-  link: String
-  thumbnail: String
-}
-
 input mutationPageInput {
   title: String
   hero: mutationPage_HeroInput!
@@ -21335,7 +20224,6 @@ input Page_Hero_Basic_Links_Link_ReferenceRelationshipInput {
 
 enum Page_Hero_Basic_Links_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPage_Hero_ContentInput {
@@ -21370,7 +20258,6 @@ input Page_Hero_Content_Links_Link_ReferenceRelationshipInput {
 
 enum Page_Hero_Content_Links_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPage_Hero_ContentMediaInput {
@@ -21407,7 +20294,6 @@ input Page_Hero_ContentMedia_Links_Link_ReferenceRelationshipInput {
 
 enum Page_Hero_ContentMedia_Links_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPage_Hero_ContentMedia_EmbeddedVideoInput {
@@ -21461,7 +20347,6 @@ input Page_Hero_ContentSidebar_Links_Link_ReferenceRelationshipInput {
 
 enum Page_Hero_ContentSidebar_Links_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPage_Hero_FullscreenBackgroundInput {
@@ -21497,7 +20382,6 @@ input Page_Hero_FullscreenBackground_Links_Link_ReferenceRelationshipInput {
 
 enum Page_Hero_FullscreenBackground_Links_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPage_Hero_QuickNavInput {
@@ -21534,7 +20418,6 @@ input Page_Hero_QuickNav_Links_Link_ReferenceRelationshipInput {
 
 enum Page_Hero_QuickNav_Links_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPage_Hero_QuickNav_ColumnsInput {
@@ -21558,7 +20441,6 @@ input Page_Hero_QuickNav_Columns_Link_ReferenceRelationshipInput {
 
 enum Page_Hero_QuickNav_Columns_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPage_Hero_FullscreenSliderInput {
@@ -21595,7 +20477,6 @@ input Page_Hero_FullscreenSlider_Links_Link_ReferenceRelationshipInput {
 
 enum Page_Hero_FullscreenSlider_Links_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPage_Hero_FullscreenSlider_SlidesInput {
@@ -21632,7 +20513,6 @@ input Page_Hero_FullscreenSlider_Slides_Links_Link_ReferenceRelationshipInput {
 
 enum Page_Hero_FullscreenSlider_Slides_Links_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPage_BreadcrumbsInput {
@@ -21714,7 +20594,6 @@ input PageUpdate_Hero_Basic_Links_Link_ReferenceRelationshipInput {
 
 enum PageUpdate_Hero_Basic_Links_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPageUpdate_Hero_ContentInput {
@@ -21749,7 +20628,6 @@ input PageUpdate_Hero_Content_Links_Link_ReferenceRelationshipInput {
 
 enum PageUpdate_Hero_Content_Links_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPageUpdate_Hero_ContentMediaInput {
@@ -21786,7 +20664,6 @@ input PageUpdate_Hero_ContentMedia_Links_Link_ReferenceRelationshipInput {
 
 enum PageUpdate_Hero_ContentMedia_Links_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPageUpdate_Hero_ContentMedia_EmbeddedVideoInput {
@@ -21840,7 +20717,6 @@ input PageUpdate_Hero_ContentSidebar_Links_Link_ReferenceRelationshipInput {
 
 enum PageUpdate_Hero_ContentSidebar_Links_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPageUpdate_Hero_FullscreenBackgroundInput {
@@ -21876,7 +20752,6 @@ input PageUpdate_Hero_FullscreenBackground_Links_Link_ReferenceRelationshipInput
 
 enum PageUpdate_Hero_FullscreenBackground_Links_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPageUpdate_Hero_QuickNavInput {
@@ -21913,7 +20788,6 @@ input PageUpdate_Hero_QuickNav_Links_Link_ReferenceRelationshipInput {
 
 enum PageUpdate_Hero_QuickNav_Links_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPageUpdate_Hero_QuickNav_ColumnsInput {
@@ -21937,7 +20811,6 @@ input PageUpdate_Hero_QuickNav_Columns_Link_ReferenceRelationshipInput {
 
 enum PageUpdate_Hero_QuickNav_Columns_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPageUpdate_Hero_FullscreenSliderInput {
@@ -21974,7 +20847,6 @@ input PageUpdate_Hero_FullscreenSlider_Links_Link_ReferenceRelationshipInput {
 
 enum PageUpdate_Hero_FullscreenSlider_Links_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPageUpdate_Hero_FullscreenSlider_SlidesInput {
@@ -22011,7 +20883,6 @@ input PageUpdate_Hero_FullscreenSlider_Slides_Links_Link_ReferenceRelationshipIn
 
 enum PageUpdate_Hero_FullscreenSlider_Slides_Links_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationPageUpdate_BreadcrumbsInput {
@@ -22346,7 +21217,6 @@ input MainMenu_Items_Link_ReferenceRelationshipInput {
 
 enum MainMenu_Items_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }
 
 input mutationFooterInput {
@@ -22381,5 +21251,4 @@ input Footer_Items_Link_ReferenceRelationshipInput {
 
 enum Footer_Items_Link_ReferenceRelationshipInputRelationTo {
   pages
-  posts
 }

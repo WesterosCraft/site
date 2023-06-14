@@ -1,0 +1,19 @@
+---
+import ContainerBorder from "./container-border.astro";
+const { title, copy, borderBottom } = Astro.props;
+---
+
+<div class='relative'>
+  <ContainerBorder borderBottom={borderBottom}>
+    <div class='relative max-w-7xl mx-auto py-16 px-4 sm:py-20 sm:px-6 lg:px-8'>
+      <h1
+        class='text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl'
+      >
+        {title}
+      </h1>
+      <p class='mt-6 max-w-3xl text-xl text-gray-800'>
+        {copy}
+      </p>
+    </div>
+  </ContainerBorder>
+</div>

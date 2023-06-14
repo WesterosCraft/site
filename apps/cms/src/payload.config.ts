@@ -3,14 +3,13 @@ import { cloudStorage } from '@payloadcms/plugin-cloud-storage'
 import path from 'path'
 import nestedDocs from '@payloadcms/plugin-nested-docs'
 import Categories from './collections/Categories'
-import Posts from './collections/Posts'
+// import Posts from './collections/Posts'
 import Tags from './collections/Tags'
 import Users from './collections/Users'
 import Media from './collections/Media'
 import Pages from './collections/Pages'
 import Locations from './collections/Locations'
 import Guides from './collections/Guides'
-import RookeryEditions from './collections/RookeryEditions'
 import MainMenu from './globals/MainNav'
 import Footer from './globals/Footer'
 import { adapter } from './s3-adapter'
@@ -29,7 +28,7 @@ export default buildConfig({
     window: 2 * 60 * 1000, // 2 minutes
     max: 2400, // limit each IP per windowMs
   },
-  collections: [Categories, Posts, Tags, Users, Media, RookeryEditions, Pages, Locations, Guides],
+  collections: [Categories, Tags, Users, Media, Pages, Locations, Guides],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },

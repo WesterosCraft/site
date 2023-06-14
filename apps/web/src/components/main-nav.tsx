@@ -134,8 +134,8 @@ export const MainNav = () => {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <Button className='bg-white text-primaryDark font-semibold rounded-none text-md hover:bg-primaryRed hover:text-white'>
-        Join Server
+      <Button className='hover:bg-red-900  font-semibold rounded-none text-md bg-primaryRed text-white'>
+        <a href='/join'>Join Server</a>
       </Button>
     </div>
   );

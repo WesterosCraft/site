@@ -1,0 +1,145 @@
+---
+import RootLayout from "@layouts/root.astro";
+import ContainerBorder from "@components/container-border.astro";
+import { TypographyH1, TypographyH4 } from "@components/typography";
+import { Button } from "@components/ui/button";
+---
+
+<RootLayout title='About WesterosCraft'>
+  <div class='flex flex-col w-full'>
+    <ContainerBorder
+      variant='light'
+      className='flex flex-col w-full mx-auto px-4 py-16 sm:py-20 items-center'
+    >
+      <div class='flex flex-col md:flex-row items-center gap-12'>
+        <img
+          class='w-[100px] md:w-[120px]'
+          alt='Banner'
+          src='https://cdn.sanity.io/images/1as7cn02/production/8f28a51e41e305134d543fb3e702e7d49b6978d3-180x360.png'
+        />
+        <div class='max-w-2xl text-center sm:text-left'>
+          <TypographyH1>The story behind WesterosCraft</TypographyH1>
+          <TypographyH4 className='max-w-3xl mt-6'>
+            Our goal is to recreate the universe imagined by author George R. R.
+            Martin in his fantasy series, A Song of Ice and Fire. Here's a bit
+            about how the project took off.
+          </TypographyH4>
+        </div>
+      </div>
+    </ContainerBorder>
+    <div class='w-full bg-primaryDark'>
+      <ContainerBorder variant='dark' className='pt-14 pb-8 px-4 border-b'>
+        <div class='flex justify-center items-center'>
+          <TypographyH1 className='text-white'>Our story</TypographyH1>
+        </div>
+      </ContainerBorder>
+    </div>
+    <!-- {
+      pageData?.copy?.map((item: any) => (
+        <Box
+          key={item?._key}
+          width='full'
+          bg={item?.variant === "dark" ? "primaryDark" : undefined}
+        >
+          <ContainerBorder
+            variant={item?.variant === "dark" ? "dark" : "light"}
+            color={item?.variant === "dark" ? "white" : "primaryDark"}
+            borderTop={
+              item?.topBorder
+                ? `1px solid ${item?.variant === "dark" ? "white" : "black"}`
+                : undefined
+            }
+            pt={["20", "24"]}
+            pb={["24", "32"]}
+            px='4'
+          >
+            <Box maxW='3xl' mx='auto' textAlign='center'>
+              <PortableText
+                value={item?.content}
+                components={{
+                  block: {
+                    // Ex. 1: customizing common block types
+                    title: ({ children }) => (
+                      <Text fontSize='xl' mb='6'>
+                        {children}
+                      </Text>
+                    ),
+                    normal: ({ children }) => (
+                      <Text mb='6' fontSize={{ base: "md", sm: "lg" }}>
+                        {children}
+                      </Text>
+                    ),
+                    h3: ({ children }) => (
+                      <Heading
+                        mb='6'
+                        color={
+                          item?.variant === "dark"
+                            ? "primaryGold"
+                            : "primaryDark"
+                        }
+                        fontSize={{ base: "3xl", sm: "4xl" }}
+                      >
+                        {children}
+                      </Heading>
+                    ),
+                  },
+                  marks: {
+                    textCenter: ({ children }) => (
+                      <chakra.span textAlign='center'>{children}</chakra.span>
+                    ),
+                    dropcap: ({ children }) => <Dropcap>{children}</Dropcap>,
+                  },
+                  types: {
+                    figure: ({ value }) => {
+                      return (
+                        <Center
+                          flexDirection='column'
+                          my='6'
+                          // width={value?.width || 500}
+                          // height={value?.height || 350}
+                          mx='auto'
+                        >
+                          <NextImage
+                            alt={value?.alt}
+                            src={urlForImage(value?.image?.asset).url()}
+                            width={value?.width || "auto"}
+                            height={value?.height || "auto"}
+                            // style={{ maxWidth: '100%', height: 'auto' }}
+                          />
+                          {value?.caption && (
+                            <Text mt='2' textAlign='center' fontSize='xs'>
+                              {value.caption}
+                            </Text>
+                          )}
+                        </Center>
+                      );
+                    },
+                  },
+                }}
+              />
+            </Box>
+          </ContainerBorder>
+        </Box>
+      ))
+    } -->
+    <ContainerBorder>
+      <section>
+        <div class='max-w-2xl mx-auto px-6 lg:px-8 py-16 sm:py-20 text-center'>
+          <TypographyH1>Ready to Explore?</TypographyH1>
+          <TypographyH4 className='mt-4'>
+            Westeros is home to over 500 cities, castles, and landmarks. Our
+            goal is to construct them all. With over 300 completed so far, our
+            community is well on our way to having a fully explorable map.
+          </TypographyH4>
+          <a href='/join'>
+            <Button
+              className='mt-8 bg-primaryRed hover:bg-red-800 text-white h-14 px-8 text-md'
+            >
+              Join the Server
+            </Button>
+          </a>
+        </div>
+      </section>
+    </ContainerBorder>
+  </div>
+</RootLayout>

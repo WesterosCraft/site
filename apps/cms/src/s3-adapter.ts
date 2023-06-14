@@ -6,7 +6,7 @@ export const adapter = s3Adapter({
       accessKeyId: process.env.S3_ACCESS_KEY_ID,
       secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
     },
-    // ... Other S3 configuration
+    region: process.env.S3_REGION,
   },
   bucket: process.env.S3_BUCKET,
 })

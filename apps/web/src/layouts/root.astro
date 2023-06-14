@@ -16,7 +16,7 @@ const { title } = Astro.props.frontmatter || Astro.props;
     <meta name='generator' content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class='relative flex min-h-screen flex-col antialiased'>
+  <body class='relative flex min-h-screen flex-col antialiased bg-primaryLight'>
     <SiteHeader client:load />
     <slot />
     <Footer />
