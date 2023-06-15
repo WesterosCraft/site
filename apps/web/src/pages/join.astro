@@ -6,9 +6,11 @@ import {
   TypographyH2,
   TypographyH3,
   TypographyH4,
+  TypographyP,
 } from "@components/typography";
 import { Button } from "@components/ui/button";
 import PageHeader from "@components/page-header.astro";
+import GuideCard from "@components/guide-card.astro";
 ---
 
 <RootLayout title='Join WesterosCraft'>
@@ -21,10 +23,10 @@ import PageHeader from "@components/page-header.astro";
     <div class='w-full'>
       <ContainerBorder variant='light' className='py-24 sm:py-32'>
         <div
-          class='px-4 sm:px-6 lg:px-8 max-w-7xl flex flex-col sm:flex-row justify-between items-center'
+          class='px-4 sm:px-6 lg:px-8 max-w-7xl flex flex-col gap-10 sm:flex-row justify-between items-center'
         >
-          <div class='flex max-w-2xl px-4 text-left flex-col mx-auto'>
-            <TypographyH2 className='text-primaryGold'>
+          <div class='flex max-w-xl px-4 text-left flex-col mx-auto'>
+            <TypographyH2 className='text-primaryRed'>
               Getting Started
             </TypographyH2>
             <TypographyH4 className='mt-6'>
@@ -36,16 +38,10 @@ import PageHeader from "@components/page-header.astro";
               thoroughly, and if you need any help, feel free to check out the
               tech support forum or the #techsupport Discord channel!
             </TypographyH4>
-          </div>
-          <div>
-            <div class='flex flex-col p-12 border prose w-full max-w-md'>
-              <TypographyH3>CurseForge Launcher</TypographyH3>
-              <p>
-                Dedicated app for handling mods and addons, not just for
-                Minecraft but other games as well.
-              </p>
+            <div class='mt-6'>
+              <TypographyH3>Requirements</TypographyH3>
               <ul>
-                <li>Quick and responsive</li>
+                <li>A valid Java Minecraft account</li>
                 <li>Supports mod authors</li>
                 <li>Connected to central modpack repository</li>
                 <li>Built in mods manager</li>
@@ -53,12 +49,56 @@ import PageHeader from "@components/page-header.astro";
               </ul>
             </div>
           </div>
+          <GuideCard
+            isRecommended
+            title='CurseForge Launcher'
+            description='Dedicated app for handling mods and addons, not just for Minecraft but other games as well.'
+          />
+        </div>
+      </ContainerBorder>
+      <ContainerBorder className='pt-14 pb-8 px-4 border border-b'>
+        <div class='flex flex-col justify-center items-center'>
+          <TypographyH2>Other Launchers</TypographyH2>
+        </div>
+      </ContainerBorder>
+      <ContainerBorder>
+        <div class='flex flex-row py-24 sm:py-32 justify-evenly items-center'>
+          <GuideCard
+            title='CurseForge Launcher'
+            description='Dedicated app for handling mods and addons, not just for Minecraft but other games as well.'
+          />
+          <GuideCard
+            title='CurseForge Launcher'
+            description='Dedicated app for handling mods and addons, not just for Minecraft but other games as well.'
+          />
+        </div>
+      </ContainerBorder>
+
+      <ContainerBorder className='pt-14 pb-8 px-4 border border-b'>
+        <div
+          class='flex flex-col justify-center items-center max-w-2xl text-center mx-auto'
+        >
+          <TypographyH2>More Ways To Play</TypographyH2>
+          <TypographyH4 className='mt-6'>
+            Don't want to download a third party program or for running into
+            issues getting them to work? There are still more options for you!
+          </TypographyH4>
         </div>
       </ContainerBorder>
     </div>
   </div>
 </RootLayout>
 
+<!-- bg="primaryRed"
+              position="absolute"
+              right={-20}
+              top={6}
+              width="240px"
+              transform="rotate(45deg)"
+              py={2}
+              justifyContent="center"
+              alignItems="center"
+              {...flexProps} --
 <!-- export default function JoinPage({ pageData }: { pageData: JoinPageData }) {
     return (
       <>
