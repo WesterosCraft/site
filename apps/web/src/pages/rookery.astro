@@ -5,6 +5,7 @@ import { TypographyH2, TypographyH4 } from "@components/typography";
 import { Button } from "@components/ui/button";
 import { getRookeryPage } from "@lib/payload";
 import PageHeader from "@components/page-header.astro";
+import type { Page } from "@lib/payload-types";
 
 const data = await getRookeryPage();
 
@@ -12,6 +13,8 @@ const editions = data?.layout?.find(
   (k) => k?.blockType === "rookery-editions"
   // @ts-ignore
 )?.editions;
+
+interface Props extends Page {}
 ---
 
 <RootLayout title='The Rookery'>

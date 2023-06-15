@@ -1,0 +1,31 @@
+---
+import type { Location } from "@lib/payload-types";
+import WikiLayout from "@layouts/wiki.astro";
+import ContentSlice from "@components/content-slice.astro";
+
+interface Props extends Location {}
+
+export async function getStaticPaths() {
+  let data = await fetch("http://localhost:3000/api/locations");
+  let locations: { docs: Location[] } = await data.json();
+
+  return locations.docs.map((location) => {
+    return {
+      params: { slug: location.slug },
+      props: {
+        ...location,
+      },
+    };
+  });
+}
+
+const { layout, locationName, projectDetails } = Astro.props;
+---
+
+<WikiLayout title={locationName}>
+  <div>
+    <h1>{locationName}</h1>
+    <p set:html={projectDetails?.information?.region} />
+    <ContentSlice content={layout} />
+  </div>
+</WikiLayout>

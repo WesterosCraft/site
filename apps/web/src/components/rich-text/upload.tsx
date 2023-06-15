@@ -1,40 +1,39 @@
-import React from 'react'
-import { Media as MediaType } from '@types'
-
-import { CMSLink, CMSLinkType } from '@components/CMSLink'
-import { Media } from '@components/Media'
+import React from "react";
+import { Media as MediaType } from "@lib/payload-types";
+import { CMSLink, CMSLinkType } from "@components/CMSLink";
+import { Media } from "@components/Media";
 
 export type RichTextUploadNodeType = {
   fields: {
-    link?: CMSLinkType
-    enableLink?: boolean
-  }
-  value?: MediaType
-  relationTo: string
-}
+    link?: CMSLinkType;
+    enableLink?: boolean;
+  };
+  value?: MediaType;
+  relationTo: string;
+};
 
 export type Props = {
-  node: any
-  className?: string
-}
+  node: any;
+  className?: string;
+};
 
-export const RichTextUpload: React.FC<Props> = props => {
+export const RichTextUpload: React.FC<Props> = (props) => {
   const {
     node: { fields, value },
     className,
-  } = props
+  } = props;
 
-  let Wrap: React.ComponentType<CMSLinkType> | string = 'div'
+  let Wrap: React.ComponentType<CMSLinkType> | string = "div";
 
-  const styles: React.CSSProperties = {}
+  const styles: React.CSSProperties = {};
 
-  let wrapProps: CMSLinkType = {}
+  let wrapProps: CMSLinkType = {};
 
   if (fields?.enableLink) {
-    Wrap = CMSLink
+    Wrap = CMSLink;
     wrapProps = {
       ...fields?.link,
-    }
+    };
   }
 
   return (
@@ -43,7 +42,7 @@ export const RichTextUpload: React.FC<Props> = props => {
         <Media resource={value as MediaType} />
       </Wrap>
     </div>
-  )
-}
+  );
+};
 
-export default RichTextUpload
+export default RichTextUpload;
