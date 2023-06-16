@@ -2,31 +2,27 @@
 import RootLayout from "@layouts/root.astro";
 import ContainerBorder from "@components/container-border.astro";
 import { TypographyH1, TypographyH4 } from "@components/typography";
+import PageHeader from "@components/page-header.astro";
 import { Button } from "@components/ui/button";
+import type { Page } from "@lib/payload-types";
+import PageSlice from "@components/page-slice.astro";
+
+const data = await fetch(
+  "http://localhost:3000/api/pages/648c733143733d43e72beb6b"
+);
+const page: Page = await data.json();
+
+interface Props extends Page {}
 ---
 
 <RootLayout title='About WesterosCraft'>
   <div class='flex flex-col w-full'>
-    <ContainerBorder
-      variant='light'
-      className='flex flex-col w-full mx-auto px-4 py-16 sm:py-20 items-center'
-    >
-      <div class='flex flex-col md:flex-row items-center gap-12'>
-        <img
-          class='w-[100px] md:w-[120px]'
-          alt='Banner'
-          src='https://cdn.sanity.io/images/1as7cn02/production/8f28a51e41e305134d543fb3e702e7d49b6978d3-180x360.png'
-        />
-        <div class='max-w-2xl text-center sm:text-left'>
-          <TypographyH1>The story behind WesterosCraft</TypographyH1>
-          <TypographyH4 className='max-w-3xl mt-6'>
-            Our goal is to recreate the universe imagined by author George R. R.
-            Martin in his fantasy series, A Song of Ice and Fire. Here's a bit
-            about how the project took off.
-          </TypographyH4>
-        </div>
-      </div>
-    </ContainerBorder>
+    <PageHeader
+      title={page?.hero?.basic?.heading || "The story behind WesterosCraft"}
+      copy={page?.hero?.basic?.description ||
+        `Our goal is to recreate the universe imagined by author George R.R. Martin in his fantasy series, A Song of Ice and Fire. Here's a bit about how the project took off.`}
+      bannerUrl={page?.hero?.basic?.media}
+    />
     <div class='w-full bg-primaryDark'>
       <ContainerBorder variant='dark' className='pt-14 pb-8 px-4 border-b'>
         <div class='flex justify-center items-center'>
@@ -34,94 +30,9 @@ import { Button } from "@components/ui/button";
         </div>
       </ContainerBorder>
     </div>
-    <!-- {
-      pageData?.copy?.map((item: any) => (
-        <Box
-          key={item?._key}
-          width='full'
-          bg={item?.variant === "dark" ? "primaryDark" : undefined}
-        >
-          <ContainerBorder
-            variant={item?.variant === "dark" ? "dark" : "light"}
-            color={item?.variant === "dark" ? "white" : "primaryDark"}
-            borderTop={
-              item?.topBorder
-                ? `1px solid ${item?.variant === "dark" ? "white" : "black"}`
-                : undefined
-            }
-            pt={["20", "24"]}
-            pb={["24", "32"]}
-            px='4'
-          >
-            <Box maxW='3xl' mx='auto' textAlign='center'>
-              <PortableText
-                value={item?.content}
-                components={{
-                  block: {
-                    // Ex. 1: customizing common block types
-                    title: ({ children }) => (
-                      <Text fontSize='xl' mb='6'>
-                        {children}
-                      </Text>
-                    ),
-                    normal: ({ children }) => (
-                      <Text mb='6' fontSize={{ base: "md", sm: "lg" }}>
-                        {children}
-                      </Text>
-                    ),
-                    h3: ({ children }) => (
-                      <Heading
-                        mb='6'
-                        color={
-                          item?.variant === "dark"
-                            ? "primaryGold"
-                            : "primaryDark"
-                        }
-                        fontSize={{ base: "3xl", sm: "4xl" }}
-                      >
-                        {children}
-                      </Heading>
-                    ),
-                  },
-                  marks: {
-                    textCenter: ({ children }) => (
-                      <chakra.span textAlign='center'>{children}</chakra.span>
-                    ),
-                    dropcap: ({ children }) => <Dropcap>{children}</Dropcap>,
-                  },
-                  types: {
-                    figure: ({ value }) => {
-                      return (
-                        <Center
-                          flexDirection='column'
-                          my='6'
-                          // width={value?.width || 500}
-                          // height={value?.height || 350}
-                          mx='auto'
-                        >
-                          <NextImage
-                            alt={value?.alt}
-                            src={urlForImage(value?.image?.asset).url()}
-                            width={value?.width || "auto"}
-                            height={value?.height || "auto"}
-                            // style={{ maxWidth: '100%', height: 'auto' }}
-                          />
-                          {value?.caption && (
-                            <Text mt='2' textAlign='center' fontSize='xs'>
-                              {value.caption}
-                            </Text>
-                          )}
-                        </Center>
-                      );
-                    },
-                  },
-                }}
-              />
-            </Box>
-          </ContainerBorder>
-        </Box>
-      ))
-    } -->
+    <ContainerBorder>
+      <PageSlice content={page?.layout} />
+    </ContainerBorder>
     <ContainerBorder>
       <section>
         <div class='max-w-2xl mx-auto px-6 lg:px-8 py-16 sm:py-20 text-center'>

@@ -1,0 +1,51 @@
+---
+import type { Page } from "@lib/payload-types";
+import { TypographyH4 } from "./typography";
+// import RichText from "./rich-text/rich-text.astro";
+import { RichText } from "./rich-text/rich-text";
+
+interface Props {
+  content: Page["layout"];
+}
+
+const { content } = Astro.props;
+---
+
+{
+  content?.map((item) => {
+    if (item.blockType === "rookery-editions") {
+      return item.editions.map((edition) => (
+        <div class='flex flex-col gap-3 items-center justify-center'>
+          <img
+            width={336}
+            height={435}
+            src={
+              typeof edition?.thumbnail === "string"
+                ? edition?.thumbnail
+                : edition?.thumbnail?.url
+            }
+            alt={edition?.name || "Rookery edition"}
+          />
+          <div class='flex max-w-[336px] flex-row w-full justify-between'>
+            <TypographyH4>{edition?.name}</TypographyH4>
+            <a
+              class='font-medium underline decoration-primaryRed underline-offset-4'
+              href={edition?.link || ""}
+              target='_blank'
+            >
+              Read Edition
+            </a>
+          </div>
+        </div>
+      ));
+    }
+
+    if (item.blockType === "content") {
+      item.columns.map((column) => (
+        <RichText client:load content={column?.richText} />
+      ));
+    }
+
+    return null;
+  })
+}

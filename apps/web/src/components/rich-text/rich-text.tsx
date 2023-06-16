@@ -10,9 +10,5 @@ export const RichText: React.FC<{
     return null;
   }
 
-  return (
-    <div>
-      <Serialize content={content} customRenderers={customRenderers} />
-    </div>
-  );
+  return <Serialize content={content} customRenderers={customRenderers} />;
 };

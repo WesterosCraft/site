@@ -75,7 +75,31 @@ export const hero: Field = {
       admin: {
         condition: (_, { type } = {}) => type === 'basic',
       },
-      fields: [richTextHeroField(), linkGroup()],
+      fields: [
+        {
+          type: 'text',
+          name: 'heading',
+          required: true,
+          label: 'Heading',
+        },
+        {
+          type: 'text',
+          name: 'description',
+          required: true,
+          label: 'Description',
+        },
+        {
+          name: 'media',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+          admin: {
+            condition: (data, { embeddedVideo }) => Boolean(!embeddedVideo?.embed),
+            description:
+              'Maximum upload file size: 2MB. Recommended file size for images is <500KB.',
+          },
+        },
+      ],
     },
     {
       name: 'content',

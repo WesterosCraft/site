@@ -3,16 +3,14 @@ import RootLayout from "@layouts/root.astro";
 import ContainerBorder from "@components/container-border.astro";
 import { TypographyH2, TypographyH4 } from "@components/typography";
 import { Button } from "@components/ui/button";
-import { getRookeryPage } from "@lib/payload";
 import PageHeader from "@components/page-header.astro";
 import type { Page } from "@lib/payload-types";
+import PageSlice from "@components/page-slice.astro";
 
-const data = await getRookeryPage();
-
-const editions = data?.layout?.find(
-  (k) => k?.blockType === "rookery-editions"
-  // @ts-ignore
-)?.editions;
+const data = await fetch(
+  "http://localhost:3000/api/pages/648607d0fce0f425bccc54ca"
+);
+const page: Page = await data.json();
 
 interface Props extends Page {}
 ---
@@ -20,8 +18,10 @@ interface Props extends Page {}
 <RootLayout title='The Rookery'>
   <div class='flex flex-col w-full'>
     <PageHeader
-      title='The Rookery'
-      copy='The Rookery is a community created magazine that details all the latest happenings in the realm of WesterosCraft. Check in to keep up to date with the server! Sent once a quarter.'
+      title={page?.hero?.basic?.heading || "The Rookery"}
+      copy={page?.hero?.basic?.description ||
+        "The Rookery is a community created magazine that details all the latest happenings in the realm of WesterosCraft. Check in to keep up to date with the server! Sent once a quarter."}
+      bannerUrl={page?.hero?.basic?.media}
     />
 
     <div class='w-full bg-primaryDark'>
@@ -32,7 +32,7 @@ interface Props extends Page {}
               width={512}
               height={650}
               src='https://westeroscraft.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2F1as7cn02%2Fproduction%2F0e3f719e0c4a625924d00cbb19e2ffd118a5c74c-758x956.png&w=640&q=75'
-              alt={"LAtest Rookery Edition"}
+              alt={"Latest Rookery Edition"}
             />
             <div
               class='flex flex-col gap-10 justify-center items-center text-white'
@@ -70,28 +70,7 @@ interface Props extends Page {}
         <div
           class='grid gap-y-12 gap-x-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full'
         >
-          {
-            editions?.map((edition: any) => (
-              <div class='flex flex-col gap-3 items-center justify-center'>
-                <img
-                  width={336}
-                  height={435}
-                  src={edition?.thumbnail?.url}
-                  alt={edition?.name || "Rookery edition"}
-                />
-                <div class='flex max-w-[336px] flex-row w-full justify-between'>
-                  <TypographyH4>{edition?.name}</TypographyH4>
-                  <a
-                    class='font-medium underline decoration-primaryRed underline-offset-4'
-                    href={edition?.link || ""}
-                    target='_blank'
-                  >
-                    Read Edition
-                  </a>
-                </div>
-              </div>
-            ))
-          }
+          <PageSlice content={page?.layout} />
         </div>
       </ContainerBorder>
     </div>

@@ -65,23 +65,9 @@ export interface Page {
       | 'fullscreenBackground'
       | 'fullscreenSlider';
     basic?: {
-      richText?: {
-        [k: string]: unknown;
-      }[];
-      links: {
-        link: {
-          appearance?: 'text' | 'primaryButton' | 'secondaryButton';
-          type?: 'reference' | 'custom';
-          label: string;
-          reference: {
-            value: string | Page;
-            relationTo: 'pages';
-          };
-          url: string;
-          newTab?: boolean;
-        };
-        id?: string;
-      }[];
+      heading: string;
+      description: string;
+      media: string | Media;
     };
     content?: {
       richText?: {
