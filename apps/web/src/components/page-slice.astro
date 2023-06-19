@@ -2,7 +2,10 @@
 import type { Page } from "@lib/payload-types";
 import { TypographyH4 } from "./typography";
 // import RichText from "./rich-text/rich-text.astro";
-import { RichText } from "./rich-text/rich-text";
+import RichText from "./rich-text/rich-text.astro";
+import Prose from "./prose.astro";
+import ContainerBorder from "./container-border.astro";
+import clsx from "clsx";
 
 interface Props {
   content: Page["layout"];
@@ -41,8 +44,21 @@ const { content } = Astro.props;
     }
 
     if (item.blockType === "content") {
-      item.columns.map((column) => (
-        <RichText client:load content={column?.richText} />
+      return item.columns.map((column) => (
+        <ContainerBorder
+          borderBottom
+          className={clsx(
+            "w-full",
+            column?.alignment === "center" ? "text-center" : "text-left",
+            "py-24"
+          )}
+        >
+          <div class='max-w-3xl mx-auto'>
+            <Prose>
+              <RichText content={column?.richText} />
+            </Prose>
+          </div>
+        </ContainerBorder>
       ));
     }
 

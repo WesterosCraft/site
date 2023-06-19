@@ -134,9 +134,9 @@ const { title } = Astro.props;
       </dl> -->
     </div>
     <div
-      class='hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:py-16 xl:pr-6'
+      class='hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:py-16'
     >
-      table of contents TODO
+      <slot name='project-details' />
     </div>
   </div>
 </RootLayout>

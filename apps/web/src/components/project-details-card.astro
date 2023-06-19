@@ -1,0 +1,62 @@
+---
+import type { Location } from "@lib/payload-types";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@components/ui/table";
+import { titleize } from "@lib/utils";
+import dayjs from "dayjs";
+
+interface Props {
+  projectDetails: Location["projectDetails"];
+}
+
+const { projectDetails } = Astro.props;
+---
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead className='w-[150px]'>Project Details</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell className='font-medium'>Region</TableCell>
+      <TableCell>{titleize(projectDetails?.information?.region)}</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className='font-medium'>Project Lead(s)</TableCell>
+      <TableCell>{projectDetails?.information?.projectLeads}</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className='font-medium'>House</TableCell>
+      <TableCell>{projectDetails?.information?.house}</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className='font-medium'>Status</TableCell>
+      <TableCell>{titleize(projectDetails?.information?.status)}</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className='font-medium'>Warp</TableCell>
+      <TableCell>{projectDetails?.information?.warp}</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className='font-medium'>Date Started</TableCell>
+      <TableCell>
+        {dayjs(projectDetails?.information?.dateStarted).format("MMMM D, YYYY")}
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className='font-medium'>Date Completed</TableCell>
+      <TableCell>
+        {dayjs(projectDetails?.information?.dateStarted).format("MMMM D, YYYY")}
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>

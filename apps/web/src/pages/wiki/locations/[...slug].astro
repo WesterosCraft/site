@@ -1,7 +1,10 @@
 ---
 import type { Location } from "@lib/payload-types";
 import WikiLayout from "@layouts/wiki.astro";
-import ContentSlice from "@components/wiki-slice.astro";
+import WikiSlice from "@components/wiki-slice.astro";
+import { slugify } from "@lib/utils";
+
+import ProjectDetailsCard from "@components/project-details-card.astro";
 
 interface Props extends Location {}
 
@@ -11,7 +14,11 @@ export async function getStaticPaths() {
 
   return locations.docs.map((location) => {
     return {
-      params: { slug: location.slug },
+      params: {
+        slug: `${slugify(location.projectDetails.information.region)}/${
+          location.slug
+        }`,
+      },
       props: {
         ...location,
       },
@@ -23,9 +30,11 @@ const { layout, locationName, projectDetails } = Astro.props;
 ---
 
 <WikiLayout title={locationName}>
+  <div slot='project-details'>
+    <ProjectDetailsCard projectDetails={projectDetails} />
+  </div>
+  <h1>{locationName}</h1>
   <div>
-    <h1>{locationName}</h1>
-    <p set:html={projectDetails?.information?.region} />
-    <ContentSlice content={layout} />
+    <WikiSlice content={layout} />
   </div>
 </WikiLayout>

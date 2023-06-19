@@ -9,7 +9,7 @@ import { TypographyH1, TypographyH4 } from "@components/typography";
   class='h-[550px] sm:h-[600px] md:h-[750px] relative w-full flex flex-col justify-center items-end lg:items-center pb-14 lg:pb-0 bg-primaryDark'
 >
   <div
-    class='flex flex-col z-10 items-start justify-center absolute left-auto top-auto right-0 bottom-[60px] sm:bottom-auto w-[95%] sm:w-[92%] lg:w-[43%] h-auto lg:h-[400px] bg-primaryLight p-5 sm:p-7'
+    class='flex flex-col z-10 items-start justify-center absolute left-auto top-auto right-0 bottom-[60px] sm:bottom-auto w-[95%] sm:w-[92%] lg:w-[43%] h-auto lg:h-[400px] bg-primaryLight p-5 sm:p-8 !pl-10'
   >
     <motion.div
       client:load
@@ -17,7 +17,7 @@ import { TypographyH1, TypographyH4 } from "@components/typography";
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: 0.3 }}
-      className='max-w-lg leading-5'
+      className='max-w-lg !leading-7'
     >
       <TypographyH1>
         Explore the world of <span class='text-primaryRed'
@@ -65,7 +65,7 @@ import { TypographyH1, TypographyH4 } from "@components/typography";
     class='max-w-7xl absolute top-0 left-auto right-auto bottom-auto h-full px-2 md:px-5 w-full'
   >
     <div
-      class='w-full mx-auto h-full border-r-0 sm:border-r-[1.5px] border-primaryGold'
+      class='w-full mx-auto h-full border-r-0 sm:border-r-2 border-primaryGold'
     >
     </div>
   </div>

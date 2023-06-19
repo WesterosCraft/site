@@ -1,6 +1,6 @@
 ---
 import type { Location } from "@lib/payload-types";
-import { RichText } from "./rich-text/rich-text";
+import RichText from "./rich-text/rich-text.astro";
 
 interface Props {
   content: Location["layout"];
@@ -12,7 +12,7 @@ const { content } = Astro.props;
 {
   content?.map((item) => {
     if (item.blockType === "content") {
-      item.columns.map((column) => (
+      return item.columns.map((column) => (
         <div>
           <RichText content={column?.richText} />
         </div>
@@ -34,7 +34,7 @@ const { content } = Astro.props;
     if (item.blockType === "mediaSlider") {
       return (
         <div>
-          <RichText content={item?.introContent} />
+          <RichText client:visible content={item?.introContent} />
         </div>
       );
     }
