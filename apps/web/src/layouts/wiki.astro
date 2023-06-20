@@ -13,19 +13,25 @@ const navigation = [
     ],
   },
   {
-    title: "Core concepts",
+    title: "Regions",
     links: [
-      { title: "Understanding caching", href: "/docs/understanding-caching" },
+      { title: "Beyond The Wall", href: "/docs/understanding-caching" },
       {
-        title: "Predicting user behavior",
+        title: "Crownlands",
         href: "/docs/predicting-user-behavior",
       },
-      { title: "Basics of time-travel", href: "/docs/basics-of-time-travel" },
+      { title: "Reach", href: "/docs/basics-of-time-travel" },
       {
-        title: "Introduction to string theory",
+        title: "Stormlands",
         href: "/docs/introduction-to-string-theory",
       },
-      { title: "The buttery effect", href: "/docs/the-butterfly-effect" },
+      { title: "Riverlands", href: "/docs/the-butterfly-effect" },
+      { title: "Dorne", href: "/docs/the-butterfly-effect" },
+      { title: "The Wall", href: "/docs/the-butterfly-effect" },
+      { title: "North", href: "/docs/the-butterfly-effect" },
+      { title: "Vale", href: "/docs/the-butterfly-effect" },
+      { title: "Iron Islands", href: "/docs/the-butterfly-effect" },
+      { title: "Westerlands", href: "/docs/the-butterfly-effect" },
     ],
   },
   {
@@ -134,8 +140,9 @@ const { title } = Astro.props;
       </dl> -->
     </div>
     <div
-      class='hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:py-16'
+      class='divide-y hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:py-16'
     >
+      <slot name='toc' />
       <slot name='project-details' />
     </div>
   </div>

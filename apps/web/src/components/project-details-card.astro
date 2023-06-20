@@ -1,13 +1,5 @@
 ---
 import type { Location } from "@lib/payload-types";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@components/ui/table";
 import { titleize } from "@lib/utils";
 import dayjs from "dayjs";
 
@@ -16,47 +8,38 @@ interface Props {
 }
 
 const { projectDetails } = Astro.props;
+
+const items = [
+  { name: "Region", value: titleize(projectDetails?.information?.region) },
+  { name: "Project Lead(s)", value: projectDetails?.information?.projectLeads },
+  { name: "House", value: projectDetails?.information?.house },
+  { name: "Status", value: titleize(projectDetails?.information?.status) },
+  { name: "Warp", value: projectDetails?.information?.warp },
+  {
+    name: "Date Started",
+    value: dayjs(projectDetails?.information?.dateStarted).format(
+      "MMMM D, YYYY"
+    ),
+  },
+  {
+    name: "Date Completed",
+    value: dayjs(projectDetails?.information?.dateStarted).format(
+      "MMMM D, YYYY"
+    ),
+  },
+];
 ---
 
-<Table>
-  <TableHeader>
-    <TableRow>
-      <TableHead className='w-[150px]'>Project Details</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell className='font-medium'>Region</TableCell>
-      <TableCell>{titleize(projectDetails?.information?.region)}</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell className='font-medium'>Project Lead(s)</TableCell>
-      <TableCell>{projectDetails?.information?.projectLeads}</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className='font-medium'>House</TableCell>
-      <TableCell>{projectDetails?.information?.house}</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell className='font-medium'>Status</TableCell>
-      <TableCell>{titleize(projectDetails?.information?.status)}</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell className='font-medium'>Warp</TableCell>
-      <TableCell>{projectDetails?.information?.warp}</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell className='font-medium'>Date Started</TableCell>
-      <TableCell>
-        {dayjs(projectDetails?.information?.dateStarted).format("MMMM D, YYYY")}
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell className='font-medium'>Date Completed</TableCell>
-      <TableCell>
-        {dayjs(projectDetails?.information?.dateStarted).format("MMMM D, YYYY")}
-      </TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
+<div>
+  <p class='mt-10 mb-4 text-sm font-semibold tracking-tight'>Project Details</p>
+  <ul>
+    {
+      items.map((item) => (
+        <li class='text-sm my-2 scroll-my-6 scroll-py-6'>
+          <span class='font-medium'>{item.name}</span>
+          {`: ${item.value}`}
+        </li>
+      ))
+    }
+  </ul>
+</div>
